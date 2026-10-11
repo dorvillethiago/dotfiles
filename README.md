@@ -1,6 +1,6 @@
 # dotfiles
 
-<p>Windows tiling desktop setup using [Komorebi](https://github.com/LGUG2Z/komorebi), [YASB](https://github.com/amnweb/yasb), and [whkd](https://github.com/LGUG2Z/whkd).</p>
+<p>Windows tiling desktop setup</p>
 
 <img width="2560" height="1080" alt="{0107E4F7-ED8B-4EB4-B4A1-E821678F97B6}" src="https://github.com/user-attachments/assets/c64ec4fb-738b-4f0a-8805-c2297d6cac7a" />
 
