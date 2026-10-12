@@ -163,7 +163,7 @@
     --subtext: #E5E7EB; */
 
         /* Mica Glass */
-    --background: rgba(32, 32, 32, 0.76);
+    --background: rgba(32, 32, 32, 0.80);
     --background2: rgba(255, 255, 255, 0.06);
     --accent: var(--yasb-accent);
     --accent-soft: var(--yasb-accent-light2);
