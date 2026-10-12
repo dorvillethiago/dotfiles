@@ -492,12 +492,11 @@ widgets:
         - "quick_actions"
         - "sliders"
         - "power"
-        - "media"
       popup:
         alignment: "right"
         direction: "down"
         border_color: none
-        round_corners: false
+        round_corners: true
         blur: true
         round_corners_type: normal
         offset_top: 9
@@ -548,15 +547,6 @@ widgets:
             icon: "\uE720"
             show_source_selector: true
             source_selector_icon: "\uE972"
-        media:
-          show: true
-          thumbnail_size: 36
-          thumbnail_radius: 4
-          icons:
-            prev_track: "\ue622"
-            next_track: "\ue623"
-            play: "\uf5b0"
-            pause: "\ue62e"
         power:
           show: true
           power_plan_title: "Power Plan"

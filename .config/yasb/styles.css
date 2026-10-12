@@ -163,9 +163,10 @@
     --subtext: #E5E7EB; */
 
         /* Mica Glass */
-    --background: rgba(0, 0, 0, 0.70);
-    --background2: rgba(255, 255, 255, 0.02);
+    --background: rgba(32, 32, 32, 0.76);
+    --background2: rgba(255, 255, 255, 0.06);
     --accent: var(--yasb-accent);
+    --accent-soft: var(--yasb-accent-light2);
     --text: #f3f3f3;
     --accentText: #18181b;
     --hover: rgba(255, 255, 255, 0.14);
@@ -835,7 +836,7 @@
 .komorebi-workspaces .ws-btn.active {
     padding-left: 8;
     padding-right: 8;
-    background-color: var(--accent);
+    background-color: var(--accent-soft);
     border-radius: var(--border-radius2);
     color: var(--accentText);
     padding-top: 3px;
@@ -1073,7 +1074,7 @@ Example: "Windows Media" becomes "windows-media" */
     max-height: 40px;
     border-radius: 20px;
     color: var(--accentText);
-    background-color: var(--accent);
+    background-color: var(--accent-soft);
 }
 .media-menu .btn.prev {
     margin-left: 10px;
@@ -1504,6 +1505,7 @@ Example: "Windows Media" becomes "windows-media" */
     background: var(--background);
     min-width: 360px;
     border-radius: var(--border-radius);
+    /* padding: 8px; */
 }
 
 /* SECTIONS */
@@ -1573,18 +1575,24 @@ which is 16 pixels same as the other sections. */
 
 /* SYSTEM CONTROLS */
 .control-center-menu .section.system-controls .button {
-    background-color: var(--accent);
+    background-color: var(--background2);
     border-radius: 16px;
     min-height: 32px;
     max-height: 32px;
     min-width: 32px;
     max-width: 32px;
     font-size: 14px;
-    color: var(--accentText);
+    color: var(--text);
     transition: background-color 0.08s, opacity 0.08s;
 }
 .control-center-menu .section.system-controls .button:hover {
-    background-color: var(--redFlash);
+    background-color: var(--hover);
+}
+
+/* SYSTEM CONTROLS - profile image */
+.control-center-menu .section.system-controls .button.profile-image {
+    background-color: transparent;
+    border: none;
 }
 
 /* QUICK ACTIONS */
@@ -1594,20 +1602,20 @@ which is 16 pixels same as the other sections. */
 }
 .control-center-menu .section.quick-actions .button .icon {
     font-size: 16px;
-    background-color: var(--background2);
+    background-color: rgba(255, 255, 255, 0.06);
     min-height: 48px;
     border-radius: var(--border-radius);
-    color: var(--text); 
+    color: var(--text);
 }
 .control-center-menu .section.quick-actions .button .icon:hover {
     background-color: var(--hover);
 }
 .control-center-menu .section.quick-actions .button.active .icon {
-    background-color: var(--accent);
+    background-color: var(--accent-soft);
     color: var(--accentText);
 }
 .control-center-menu .section.quick-actions .button.active .icon:hover {
-    background-color: var(--redFlash);
+    background-color: var(--accent-soft);
     color: var(--accentText);
 }
 .control-center-menu .section.quick-actions .button.disabled .icon:hover {
@@ -1658,7 +1666,7 @@ which is 16 pixels same as the other sections. */
 /* POWER PLAN & POWER MODE */
 .control-center-menu .section.power .plan-name,
 .control-center-menu .section.power .mode-name {
-    background: var(--accent);
+    background: var(--accent-soft);
     border: 1px solid var(--border);
     border-radius: var(--border-radius);
     min-height: 36px;
@@ -1668,7 +1676,7 @@ which is 16 pixels same as the other sections. */
 }
 .control-center-menu .section.power .plan-name:hover,
 .control-center-menu .section.power .mode-name:hover {
-    background: var(--redFlash);
+    background: var(--accent-soft);
 }
 .control-center-menu .section.power .mode-name.disabled,
 .control-center-menu .section.power .mode-name.disabled:hover {
@@ -1732,7 +1740,7 @@ which is 16 pixels same as the other sections. */
 }
 .control-center-menu .section.media .button {
     font-size: var(--iconSize);
-    background-color: var(--accent);
+    background-color: var(--accent-soft);
     color: var(--accentText);
     min-width: 32px;
     min-height: 32px;
@@ -1744,11 +1752,11 @@ which is 16 pixels same as the other sections. */
 
 .control-center-menu .section.media .button.prev {
     color: var(--accentText);
-    background-color: var(--accent);
+    background-color: var(--accent-soft);
 }
 .control-center-menu .section.media .button.next {
     color: var(--accentText);
-    background-color: var(--accent);
+    background-color: var(--accent-soft);
 }
 
 .control-center-menu .section.media .button.prev.disabled {
@@ -1759,7 +1767,7 @@ which is 16 pixels same as the other sections. */
 }
 
 .control-center-menu .section.media .button:hover {
-    background-color: var(--redFlash);
+    background-color: var(--accent-soft);
 }
 .control-center-menu .section.media .button.disabled,
 .control-center-menu .section.media .button.disabled:hover {
@@ -1775,7 +1783,7 @@ which is 16 pixels same as the other sections. */
     font-size: var(--fontSize);
     color: var(--text);
     border-radius: var(--border-radius);
-    border: 1px solid var(--accent);
+    border: 1px solid var(--border);
 }
 .control-center-menu .context-menu::item {
     background-color: transparent;
@@ -1813,5 +1821,5 @@ which is 16 pixels same as the other sections. */
 }
 
 .audio-visualizer-widget .audio-visualizer-canvas {
-    qproperty-fillbrush: var(--accent);
+    qproperty-fillbrush: var(--accent-soft);
 }
