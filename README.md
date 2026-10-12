@@ -3,6 +3,7 @@
 <p>Windows dotfiles and scrips for a tiling window manager experience.</p>
 
 <img width="2560" height="1080" alt="{0107E4F7-ED8B-4EB4-B4A1-E821678F97B6}" src="https://github.com/user-attachments/assets/c64ec4fb-738b-4f0a-8805-c2297d6cac7a" />
+<img width="2560" height="1080" alt="{7D13BA86-57EB-4E1F-8AA9-F293EDA316FA}" src="https://github.com/user-attachments/assets/7ab4b76e-c189-451f-9f6c-c54ae247b653" />
 
 
 ## Setup
