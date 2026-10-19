@@ -8,6 +8,8 @@
   "border": false,
   "border_width": 8,
   "border_offset": -1,
+  "transparency": true,
+  "transparency_alpha": 200,
   "theme": {
     "palette": "Base16",
     "name": "Ashes",
