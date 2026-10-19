@@ -9,7 +9,7 @@
   "border_width": 8,
   "border_offset": -1,
   "transparency": true,
-  "transparency_alpha": 200,
+  "transparency_alpha": 245,
   "theme": {
     "palette": "Base16",
     "name": "Ashes",
@@ -25,27 +25,27 @@
         },
         {
           "name": "II",
-          "layout": "VerticalStack"
+          "layout": "BSP"
         },
         {
           "name": "III",
-          "layout": "HorizontalStack"
+          "layout": "BSP"
         },
         {
           "name": "IV",
-          "layout": "UltrawideVerticalStack"
+          "layout": "BSP"
         },
         {
           "name": "V",
-          "layout": "Rows"
+          "layout": "BSP"
         },
         {
           "name": "VI",
-          "layout": "Grid"
+          "layout": "BSP"
         },
         {
           "name": "VII",
-          "layout": "RightMainVerticalStack"
+          "layout": "BSP"
         }
       ]
     }
