@@ -50,7 +50,7 @@ bars:
       - cpu
       # - wallpapers
       - volume
-      - notifications
+      # - notifications
       - language
       - control_center
 widgets:
