@@ -9,6 +9,15 @@
       }
     ]
   },
+  "Claude": {
+    "tray_and_multi_window": [
+      {
+        "kind": "Exe",
+        "id": "claude.exe",
+        "matching_strategy": "Equals"
+      }
+    ]
+  },
   "Ableton Live": {
     "ignore": [
       {
