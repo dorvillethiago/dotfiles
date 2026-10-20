@@ -1,0 +1,5 @@
+[user]
+	email = dorville.dev@gmail.com
+	name = dorvillethiago
+[safe]
+	directory = *

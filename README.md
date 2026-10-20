@@ -8,13 +8,27 @@
 
 ## Setup
 
-Run the setup script from an elevated PowerShell prompt:
+Run this from an elevated PowerShell prompt — no cloning needed:
 
 ```powershell
-.\setup.ps1
+irm https://raw.githubusercontent.com/dorvillethiago/dotfiles/main/bootstrap.ps1 | iex
 ```
 
-This installs Scoop, then installs `komorebi`, `whkd`, `yasb`, `autohotkey`, and `powertoys` via Scoop. It also registers `win.ahk` as a startup entry.
+This will:
+1. Install git if missing
+2. Bare-clone the repo into `$HOME\.dotfiles` (existing files are backed up to `$HOME\.dotfiles-backup`)
+3. Check out all dotfiles directly into `$HOME`
+4. Run `setup.ps1` to install packages and wire up symlinks
+
+> **Note:** Symlinks (for Windows Terminal settings) require either an elevated prompt or [Developer Mode](ms-settings:developers) enabled (Settings → System → For developers). Running `bootstrap.ps1` elevated covers both.
+
+## Updating
+
+```powershell
+.\update.ps1
+```
+
+Pulls the latest changes from `main` and re-runs `link.ps1`.
 
 ## What's tracked
 
@@ -26,7 +40,12 @@ This installs Scoop, then installs `komorebi`, `whkd`, `yasb`, `autohotkey`, and
 | `.config/yasb/styles.css` | YASB stylesheet |
 | `.config/whkdrc` | Hotkey bindings for Komorebi |
 | `win.ahk` | AutoHotKey v2 script — remaps Win key to open the Powertoys Command Palette |
-| `setup.ps1` | Bootstrap script |
+| `bootstrap.ps1` | One-shot setup for a fresh machine |
+| `setup.ps1` | Install packages and create startup shortcuts (idempotent) |
+| `link.ps1` | Creates symlinks for configs outside `$HOME` |
+| `update.ps1` | Pulls latest and re-links |
+| `.gitconfig` | Git user config |
+| `windows-terminal/settings.json` | Windows Terminal profile and keybindings |
 | `.claude/CLAUDE.md` | Global Claude Code instructions (git rules, PR format) |
 | `.claude/settings.json` | Claude Code preferences (theme, permissions) |
 | `.claude/commands/task.md` | `/task` slash command |

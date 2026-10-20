@@ -17,6 +17,13 @@
 !win.ahk
 !README.md
 !setup.ps1
+!bootstrap.ps1
+!link.ps1
+!update.ps1
+!.gitconfig
+!windows-terminal
+/windows-terminal/*
+!/windows-terminal/settings.json
 
 # .claude — track authored files only, block everything else
 !/.claude
