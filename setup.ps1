@@ -73,3 +73,18 @@ foreach ($entry in @(
 
 # 5. Wire up symlinks for files that live outside $HOME
 & "$PSScriptRoot\link.ps1"
+
+# 6. Start tiling environment if not already running
+if (-not (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue)) {
+    Write-Host "Starting komorebi..."
+    Start-Process komorebic -ArgumentList "start --await-configuration" -NoNewWindow
+}
+if (-not (Get-Process -Name "yasb" -ErrorAction SilentlyContinue)) {
+    Write-Host "Starting yasb..."
+    Start-Process yasb -NoNewWindow
+}
+$ptExe = "$env:LOCALAPPDATA\Microsoft\PowerToys\PowerToys.exe"
+if ((Test-Path $ptExe) -and -not (Get-Process -Name "PowerToys" -ErrorAction SilentlyContinue)) {
+    Write-Host "Starting PowerToys..."
+    Start-Process $ptExe
+}
