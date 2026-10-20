@@ -1124,6 +1124,9 @@ Example: "Windows Media" becomes "windows-media" */
 }
 
 /* Language-Widget */
+.language-widget .label {
+    text-transform: uppercase;
+}
 .language-menu {
     background-color: var(--background);
     min-width: 300px;
