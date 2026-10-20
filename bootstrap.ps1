@@ -1,4 +1,7 @@
-﻿#Requires -RunAsAdministrator
+if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Write-Error "Run this from an elevated PowerShell prompt."
+    exit 1
+}
 
 $repo   = "https://github.com/dorvillethiago/dotfiles.git"
 $gitDir = "$HOME\.dotfiles"
@@ -37,7 +40,7 @@ if ($conflicts) {
     Invoke-DotGit checkout
 }
 
-# 4. Hide untracked files from dot-git status (keeps `git status` clean)
+# 4. Hide untracked files from dot-git status
 Invoke-DotGit config status.showUntrackedFiles no
 
 # 5. Bootstrap the environment

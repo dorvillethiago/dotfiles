@@ -1,4 +1,4 @@
-﻿function Update-Path {
+function Update-Path {
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
                 [System.Environment]::GetEnvironmentVariable("Path", "User")
 }
@@ -39,14 +39,14 @@ if (-not (scoop bucket list | Select-String "extras")) {
 
 # 3. Install packages
 $packages = @(
-    @{ Name = "komorebi";   Exe = "komorebic" },
-    @{ Name = "whkd";       Exe = "whkd" },
-    @{ Name = "yasb";       Exe = "yasb" },
-    @{ Name = "autohotkey"; Exe = "autohotkey" },
-    @{ Name = "powertoys";  Exe = "powertoys" }
+    @{ Name = "komorebi";   Check = { Get-Command komorebic -ErrorAction SilentlyContinue } },
+    @{ Name = "whkd";       Check = { Get-Command whkd -ErrorAction SilentlyContinue } },
+    @{ Name = "yasb";       Check = { Get-Command yasb -ErrorAction SilentlyContinue } },
+    @{ Name = "autohotkey"; Check = { Get-Command autohotkey -ErrorAction SilentlyContinue } },
+    @{ Name = "powertoys";  Check = { Test-Path "$env:LOCALAPPDATA\Microsoft\PowerToys" } }
 )
 foreach ($pkg in $packages) {
-    if (Get-Command $pkg.Exe -ErrorAction SilentlyContinue) {
+    if (& $pkg.Check) {
         Write-Host "$($pkg.Name) already installed — skipping."
     } else {
         scoop install $pkg.Name
