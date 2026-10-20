@@ -81,9 +81,9 @@ if (-not (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue)) {
 }
 if (-not (Get-Process -Name "yasb" -ErrorAction SilentlyContinue)) {
     Write-Host "Starting yasb..."
-    Start-Process yasb -NoNewWindow
+    Start-Process (Get-Command yasb).Source
 }
-$ptExe = "$env:LOCALAPPDATA\Microsoft\PowerToys\PowerToys.exe"
+$ptExe = Join-Path (scoop prefix powertoys) "PowerToys.exe"
 if ((Test-Path $ptExe) -and -not (Get-Process -Name "PowerToys" -ErrorAction SilentlyContinue)) {
     Write-Host "Starting PowerToys..."
     Start-Process $ptExe
