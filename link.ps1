@@ -1,4 +1,4 @@
-#Requires -RunAsAdministrator
+﻿#Requires -RunAsAdministrator
 # Alternatively, enable Developer Mode in Windows Settings > System > For developers,
 # which lets non-admin users create symlinks.
 

@@ -1,4 +1,4 @@
-#Requires -RunAsAdministrator
+﻿#Requires -RunAsAdministrator
 
 $repo   = "https://github.com/dorvillethiago/dotfiles.git"
 $gitDir = "$HOME\.dotfiles"
