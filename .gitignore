@@ -17,3 +17,17 @@
 !win.ahk
 !README.md
 !setup.ps1
+
+# .claude — track authored files only, block everything else
+!/.claude
+/.claude/*
+!/.claude/CLAUDE.md
+!/.claude/settings.json
+!/.claude/commands
+/.claude/commands/*
+!/.claude/commands/task.md
+!/.claude/skills
+/.claude/skills/*
+!/.claude/skills/pr-description
+/.claude/skills/pr-description/*
+!/.claude/skills/pr-description/SKILL.md

@@ -1,3 +1,7 @@
+# Claude Code config is tracked in this repo under .claude/.
+# On a fresh machine the files are already in place if the repo was cloned to $HOME.
+# If you cloned elsewhere, copy the .claude directory to $HOME manually.
+
 function Update-Path {
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
                 [System.Environment]::GetEnvironmentVariable("Path", "User")

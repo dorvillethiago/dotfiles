@@ -27,6 +27,10 @@ This installs Scoop, then installs `komorebi`, `whkd`, `yasb`, `autohotkey`, and
 | `.config/whkdrc` | Hotkey bindings for Komorebi |
 | `win.ahk` | AutoHotKey v2 script — remaps Win key to open the Powertoys Command Palette |
 | `setup.ps1` | Bootstrap script |
+| `.claude/CLAUDE.md` | Global Claude Code instructions (git rules, PR format) |
+| `.claude/settings.json` | Claude Code preferences (theme, permissions) |
+| `.claude/commands/task.md` | `/task` slash command |
+| `.claude/skills/pr-description/SKILL.md` | `pr-description` skill |
 
 ## Keybindings
 
