@@ -38,12 +38,18 @@ if (-not (scoop bucket list | Select-String "extras")) {
 }
 
 # 3. Install packages
-$packages = @("komorebi", "whkd", "yasb", "autohotkey", "powertoys")
+$packages = @(
+    @{ Name = "komorebi";   Exe = "komorebic" },
+    @{ Name = "whkd";       Exe = "whkd" },
+    @{ Name = "yasb";       Exe = "yasb" },
+    @{ Name = "autohotkey"; Exe = "autohotkey" },
+    @{ Name = "powertoys";  Exe = "powertoys" }
+)
 foreach ($pkg in $packages) {
-    if (scoop list $pkg 2>$null | Select-String $pkg) {
-        Write-Host "$pkg already installed — skipping."
+    if (Get-Command $pkg.Exe -ErrorAction SilentlyContinue) {
+        Write-Host "$($pkg.Name) already installed — skipping."
     } else {
-        scoop install $pkg
+        scoop install $pkg.Name
     }
 }
 Update-Path
