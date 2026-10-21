@@ -88,3 +88,8 @@ if ((Test-Path $ptExe) -and -not (Get-Process -Name "PowerToys" -ErrorAction Sil
     Write-Host "Starting PowerToys..."
     Start-Process $ptExe
 }
+$ahk = Join-Path $PSScriptRoot "win.ahk"
+if ((Test-Path $ahk) -and -not (Get-Process -Name "AutoHotkey*" -ErrorAction SilentlyContinue)) {
+    Write-Host "Starting AutoHotkey..."
+    Start-Process $ahk
+}
