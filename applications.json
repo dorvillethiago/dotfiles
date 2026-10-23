@@ -25,6 +25,36 @@
       }
     ]
   },
+  "FL Studio": {
+    "manage": [
+      {
+        "kind": "Class",
+        "id": "TFruityLoopsMainForm",
+        "matching_strategy": "Equals"
+      }
+    ],
+    "tray_and_multi_window": [
+      {
+        "kind": "Exe",
+        "id": "FL64.exe",
+        "matching_strategy": "Equals"
+      }
+    ],
+    "floating": [
+      [
+        {
+          "kind": "Exe",
+          "id": "FL64.exe",
+          "matching_strategy": "Equals"
+        },
+        {
+          "kind": "Class",
+          "id": "TFruityLoopsMainForm",
+          "matching_strategy": "DoesNotEqual"
+        }
+      ]
+    ]
+  },
   "Ableton Live": {
     "ignore": [
       {
