@@ -46,18 +46,19 @@ bars:
       right:
       - systray
       # - lines
-      - memory
-      - cpu
       # - wallpapers
+      - open_meteo
       - volume
       # - notifications
       - language
+      - wifi
+      - dnd
       - control_center
 widgets:
   home:
     type: yasb.home.HomeWidget
     options:
-      label: "<span>家</span>"
+      label: "<span></span>"
       menu_list:
       - title: User Home
         path: '~'
@@ -102,11 +103,11 @@ widgets:
       label_alt: "{level}"
       tooltip: true
       icons:
-        "muted": "\uf026" # Icon for muted
-        "10": "\uf026"  # Icon for 0-10% volume
-        "30": "\uf026"  # Icon for 11-30% volume
-        "60": "\uf026"  # Icon for 31-60% volume
-        "100": "\uf026" # Icon for 61-100% volume
+        "muted": "\U000F075F" # Icon for muted
+        "10": "\U000F057F"  # Icon for 0-10% volume
+        "30": "\U000F057F"  # Icon for 11-30% volume
+        "60": "\U000F0580"  # Icon for 31-60% volume
+        "100": "\U000F057E" # Icon for 61-100% volume
       callbacks:
         on_left: toggle_volume_menu
         on_right: toggle_mute
@@ -366,7 +367,7 @@ widgets:
   language:
     type: "yasb.language.LanguageWidget"
     options:
-      label: "{lang[language_code]}"
+      label: "<span>\U000F030C</span> {lang[language_code]}"
       label_alt: "{lang[full_name]}"
       update_interval: 1
       callbacks:
@@ -406,86 +407,10 @@ widgets:
         - keys: "alt+space"
           action: "toggle_quick_launch"
           screen: "primary"
-  cpu:
-    type: "yasb.cpu.CpuWidget"
-    options:
-      label: "<span>\uf4bc</span> {info[percent][total]}%"
-      label_alt: "<span>\uf437</span> {info[freq][current]} MHz"
-      update_interval: 2000
-      cpu_thresholds:
-        low: 25
-        medium: 50
-        high: 90
-      histogram_icons:
-        - "\u2581" # 0%
-        - "\u2581" # 10%
-        - "\u2582" # 20%
-        - "\u2583" # 30%
-        - "\u2584" # 40%
-        - "\u2585" # 50%
-        - "\u2586" # 60%
-        - "\u2587" # 70%
-        - "\u2588" # 80%+
-      histogram_num_columns: 8
-      callbacks:
-        on_left: "toggle_label"
-        on_right: "toggle_menu"
-      menu:
-        enabled: true
-        show_graph: true
-        show_graph_grid: true
-        graph_history_size: 60
-        round_corners: true
-        border_color: None
-        blur: true
-  memory:
-    type: "yasb.memory.MemoryWidget"
-    options:
-      label: "<span>\uf4bc</span> {virtual_mem_used}/{virtual_mem_total}"
-      label_alt: "<span>\uf4bc</span> VIRT: {virtual_mem_percent}% SWAP: {swap_mem_percent}%"
-      update_interval: 5000
-      callbacks:
-        on_left: "toggle_label"
-        on_right: "toggle_menu"
-      memory_thresholds:
-        low: 25
-        medium: 50
-        high: 90
-      histogram_icons:
-        - "\u2581" # 0%
-        - "\u2581" # 10%
-        - "\u2582" # 20%
-        - "\u2583" # 30%
-        - "\u2584" # 40%
-        - "\u2585" # 50%
-        - "\u2586" # 60%
-        - "\u2587" # 70%
-        - "\u2588" # 80%+
-      menu:
-        enabled: true
-        show_graph: true
-        show_graph_grid: true
-        graph_history_size: 60
-        round_corners: true
-        border_color: None
-        blur: true
-  systeminfo-grouper:
-    type: "yasb.grouper.GrouperWidget"
-    options:
-      class_name: "systeminfo-grouper"
-      widgets: [
-        "memory",
-        "cpu",
-      ]
-      collapse_options:
-        enabled: true
-        expanded_label: "\uf054"
-        collapsed_label: "\ueaf8"
-        label_position: "right"
   control_center:
     type: "yasb.control_center.ControlCenterWidget"
     options:
-      label: "<span>\ueaf8</span>"
+      label: "<span>\U000F1542</span>"
       tooltip: true
       sections_order:
         - "system_controls"
@@ -581,3 +506,58 @@ widgets:
         count: 30
         size: 1
         gap: 2
+  dnd:
+    type: "yasb.dnd.DndWidget"
+    options:
+      label: "<span>{icon}</span>"
+      label_alt: "<span>{icon}</span> {status}"
+      tooltip: true
+      icons:
+        disabled: "\U000F009A"
+        priority: "\U000F009B"
+        alarms: "\U000F009B"
+      callbacks:
+        on_left: "toggle_status"
+        on_right: "cycle_status"
+  open_meteo:
+    type: "yasb.open_meteo.OpenMeteoWidget"
+    options:
+      label: "<span>{icon}</span> {temp}"
+      label_alt: "<span>{icon}</span> {temp}"
+      units: "metric"
+      hide_decimal: true
+      update_interval: 3600
+      tooltip: true
+      # Solid icons to match the rest of the bar
+      icons:
+        sunnyDay: "\U000F05A8"
+        clearNight: "\U000F0F65"
+        cloudyDay: "\ueef0"
+        cloudyNight: "\ueeef"
+        drizzleDay: "\uef1e"
+        drizzleNight: "\uef1b"
+        rainyDay: "\uef1d"
+        rainyNight: "\uef1d"
+        snowyDay: "\uf2dc"
+        snowyNight: "\uf2dc"
+        foggyDay: "\uef29"
+        foggyNight: "\uef29"
+        thunderstormDay: "\uef2c"
+        thunderstormNight: "\uef2c"
+        default: "\uf0c2"
+      callbacks:
+        on_left: "toggle_card"
+        on_right: "toggle_label"
+  wifi:
+    type: "yasb.wifi.WifiWidget"
+    options:
+      # Online/offline only: Windows' own internet check, same icon for Wi-Fi and ethernet
+      label: "<span>{wifi_icon}</span>"
+      label_alt: "<span>{wifi_icon}</span>"
+      ethernet_label: "<span>{wifi_icon}</span>"
+      ethernet_label_alt: "<span>{wifi_icon}</span>"
+      ethernet_icon: "\U000F01E7"
+      wifi_icons: ["\U000F01E8", "\U000F01E7", "\U000F01E7", "\U000F01E7", "\U000F01E7"]
+      update_interval: 5000
+      callbacks:
+        on_left: "do_nothing"
