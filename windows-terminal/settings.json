@@ -5,8 +5,8 @@
     "alwaysShowTabs": true,
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-    "keybindings": 
+    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "keybindings":
     [
         {
             "id": "Terminal.CopyToClipboard",
@@ -21,21 +21,44 @@
             "keys": "alt+shift+d"
         }
     ],
-    "newTabMenu": 
+    "newTabMenu":
     [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles": 
+    "profiles":
     {
-        "defaults": 
+        "defaults":
         {
+            "bellStyle": "none",
+            "colorScheme": "Mica Glass",
+            "cursorShape": "bar",
+            "font":
+            {
+                "face": "JetBrainsMono Nerd Font",
+                "size": 11
+            },
+            "intenseTextStyle": "bright",
             "opacity": 80,
+            "padding": "12, 0, 12, 10",
             "useAcrylic": true
         },
-        "list": 
+        "list":
         [
+            {
+                "commandline": "pwsh.exe -NoLogo",
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": false,
+                "name": "PowerShell",
+                "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "guid": "{7be0cb34-276b-552c-8a72-1941d8fed169}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Microsoft.WSL"
+            },
             {
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
@@ -45,31 +68,66 @@
             {
                 "commandline": "%SystemRoot%\\System32\\cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": false,
+                "hidden": true,
                 "name": "Prompt de comando"
             },
             {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-                "hidden": false,
+                "hidden": true,
                 "name": "Azure Cloud Shell",
                 "source": "Windows.Terminal.Azure"
-            },
-            {
-                "colorScheme": "Campbell",
-                "font": 
-                {
-                    "size": 11
-                },
-                "guid": "{7be0cb34-276b-552c-8a72-1941d8fed169}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "Microsoft.WSL"
             }
         ]
     },
-    "schemes": [],
+    "schemes":
+    [
+        {
+            "name": "Mica Glass",
+            "background": "#202020",
+            "foreground": "#F3F3F3",
+            "cursorColor": "#94CB89",
+            "selectionBackground": "#44823C",
+            "black": "#2A2A2A",
+            "red": "#E06C75",
+            "green": "#7FB872",
+            "yellow": "#D8B46A",
+            "blue": "#7AA2C8",
+            "purple": "#C77DBB",
+            "cyan": "#6FB5A8",
+            "white": "#D4D4D4",
+            "brightBlack": "#6B6B6B",
+            "brightRed": "#EF8A91",
+            "brightGreen": "#94CB89",
+            "brightYellow": "#E6C88A",
+            "brightBlue": "#98BBDB",
+            "brightPurple": "#DD9FD3",
+            "brightCyan": "#8FCABE",
+            "brightWhite": "#F3F3F3"
+        }
+    ],
     "showTabsInTitlebar": true,
     "tabWidthMode": "compact",
-    "themes": [],
+    "theme": "Mica Glass",
+    "themes":
+    [
+        {
+            "name": "Mica Glass",
+            "tab":
+            {
+                "background": "terminalBackground",
+                "showCloseButton": "hover",
+                "unfocusedBackground": "#00000000"
+            },
+            "tabRow":
+            {
+                "background": "#202020CC",
+                "unfocusedBackground": "#202020CC"
+            },
+            "window":
+            {
+                "applicationTheme": "dark"
+            }
+        }
+    ],
     "useAcrylicInTabRow": true
 }

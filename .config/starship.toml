@@ -1,0 +1,57 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Mica Glass: neutral text, green accent, pink for git
+add_newline = true
+format = """
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$python\
+$cmd_duration\
+$line_break\
+$character"""
+
+[directory]
+style = "bold #94CB89"
+truncation_length = 3
+truncate_to_repo = true
+read_only = " "
+
+[git_branch]
+symbol = " "
+style = "#DD9FD3"
+format = "[$symbol$branch]($style) "
+
+[git_status]
+style = "#E6C88A"
+format = "([$all_status$ahead_behind]($style))"
+modified = "~${count} "
+untracked = "+${count} "
+staged = "●${count} "
+deleted = "-${count} "
+renamed = "»${count} "
+conflicted = "=${count} "
+stashed = "≡${count} "
+ahead = "⇡${count} "
+behind = "⇣${count} "
+diverged = "⇡${ahead_count}⇣${behind_count} "
+
+[nodejs]
+symbol = " "
+style = "#7FB872"
+format = "[$symbol$version]($style) "
+
+[python]
+symbol = " "
+style = "#7AA2C8"
+format = "[$symbol$pyenv_prefix($version )(\\($virtualenv\\) )]($style)"
+
+[cmd_duration]
+min_time = 2000
+style = "#6B6B6B"
+format = "[ $duration]($style) "
+
+[character]
+success_symbol = "[❯](bold #94CB89)"
+error_symbol = "[❯](bold #EF8A91)"

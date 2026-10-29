@@ -12,6 +12,7 @@
 !/.config/yasb/styles.css
 !/.config/yasb/config.yaml
 !/.config/whkdrc
+!/.config/starship.toml
 !komorebi.json
 !applications.json
 !win.ahk
@@ -25,6 +26,11 @@
 !windows-terminal
 /windows-terminal/*
 !/windows-terminal/settings.json
+
+# PowerShell 7 profile
+!/powershell
+/powershell/*
+!/powershell/profile.ps1
 
 # .claude — track authored files only, block everything else
 !/.claude

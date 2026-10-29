@@ -42,10 +42,12 @@ Pulls the latest changes from `main` and re-runs `link.ps1`.
 | `win.ahk` | AutoHotKey v2 script — remaps Win key to open the Powertoys Command Palette |
 | `bootstrap.ps1` | One-shot setup for a fresh machine |
 | `setup.ps1` | Install packages and create startup shortcuts (idempotent) |
-| `link.ps1` | Creates symlinks for configs outside `$HOME` |
+| `link.ps1` | Creates symlinks for configs outside `$HOME`, backing up existing files to `.bak` |
 | `update.ps1` | Pulls latest and re-links |
 | `.gitconfig` | Git user config |
-| `windows-terminal/settings.json` | Windows Terminal profile and keybindings |
+| `windows-terminal/settings.json` | Windows Terminal profiles, Mica Glass color scheme and keybindings |
+| `powershell/profile.ps1` | PowerShell 7 profile (starts Starship), linked to `$PROFILE` |
+| `.config/starship.toml` | Starship prompt config |
 | `.claude/CLAUDE.md` | Global Claude Code instructions (git rules, PR format) |
 | `.claude/settings.json` | Claude Code preferences (theme, permissions) |
 | `.claude/commands/task.md` | `/task` slash command |

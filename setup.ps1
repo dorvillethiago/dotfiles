@@ -47,6 +47,8 @@ $packages = @(
     @{ Name = "yasb";       Check = { Get-Command yasb -ErrorAction SilentlyContinue } },
     @{ Name = "autohotkey"; Check = { Get-Command autohotkey -ErrorAction SilentlyContinue } },
     @{ Name = "powertoys";  Check = { Test-Path "$env:LOCALAPPDATA\Microsoft\PowerToys" } },
+    @{ Name = "pwsh";       Check = { Get-Command pwsh -ErrorAction SilentlyContinue } },
+    @{ Name = "starship";   Check = { Get-Command starship -ErrorAction SilentlyContinue } },
     @{ Name = "JetBrainsMono-NF"; Check = { (Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\JetBrainsMonoNerdFontPropo-*.ttf") -or (Test-Path "$env:windir\Fonts\JetBrainsMonoNerdFontPropo-*.ttf") } }
 )
 foreach ($pkg in $packages) {
