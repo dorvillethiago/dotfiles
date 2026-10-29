@@ -32,9 +32,12 @@ if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
     Write-Host "Scoop already installed - skipping."
 }
 
-# 2. Add extras bucket
+# 2. Add extras and nerd-fonts buckets
 if (-not (scoop bucket list | Select-String "extras")) {
     scoop bucket add extras
+}
+if (-not (scoop bucket list | Select-String "nerd-fonts")) {
+    scoop bucket add nerd-fonts
 }
 
 # 3. Install packages
@@ -43,7 +46,8 @@ $packages = @(
     @{ Name = "whkd";       Check = { Get-Command whkd -ErrorAction SilentlyContinue } },
     @{ Name = "yasb";       Check = { Get-Command yasb -ErrorAction SilentlyContinue } },
     @{ Name = "autohotkey"; Check = { Get-Command autohotkey -ErrorAction SilentlyContinue } },
-    @{ Name = "powertoys";  Check = { Test-Path "$env:LOCALAPPDATA\Microsoft\PowerToys" } }
+    @{ Name = "powertoys";  Check = { Test-Path "$env:LOCALAPPDATA\Microsoft\PowerToys" } },
+    @{ Name = "JetBrainsMono-NF"; Check = { (Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\JetBrainsMonoNerdFontPropo-*.ttf") -or (Test-Path "$env:windir\Fonts\JetBrainsMonoNerdFontPropo-*.ttf") } }
 )
 foreach ($pkg in $packages) {
     if (& $pkg.Check) {
