@@ -1,36 +1,45 @@
-# fastfetch recoloured from the Windows accent palette, so it follows Settings -> Personalization -> Colors.
-# The config's accent roles use unique colours (see .config/fastfetch/config.jsonc), swapped here on a temp copy.
+# Windows accent palette: 8 RGBA shades, lightest first; 3 is the accent itself. It follows
+# Settings -> Personalization -> Colors, including an accent Windows picks from the wallpaper.
+$accent = (Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent' -ErrorAction SilentlyContinue).AccentPalette
+if ($accent.Length -lt 32) { $accent = $null }
+function Get-AccentHex([int]$Shade) { '#{0:X2}{1:X2}{2:X2}' -f $accent[$Shade * 4], $accent[$Shade * 4 + 1], $accent[$Shade * 4 + 2] }
+function Get-AccentAnsi([int]$Shade) { '38;2;{0};{1};{2}' -f $accent[$Shade * 4], $accent[$Shade * 4 + 1], $accent[$Shade * 4 + 2] }
+
+# Copies a config to %TEMP% with colours swapped, so the repo's copy never changes; returns the copy's path
+function Copy-Recoloured([string]$Path, [System.Collections.IDictionary]$Map) {
+    $text = Get-Content $Path -Raw
+    foreach ($key in $Map.Keys) { $text = $text.Replace($key, $Map[$key]) }
+    $copy = Join-Path $env:TEMP ("accent-" + (Split-Path $Path -Leaf))
+    Set-Content $copy $text -Encoding utf8 -NoNewline
+    $copy
+}
+
+# fastfetch: the config's accent roles use colours unique to them (see .config/fastfetch/config.jsonc)
 function Show-Fastfetch {
     $config = "$HOME\.config\fastfetch\config.jsonc"
-    $palette = (Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent' -ErrorAction SilentlyContinue).AccentPalette
-    if (-not $palette -or $palette.Length -lt 32 -or -not (Test-Path $config)) { fastfetch @args; return }
+    if (-not $accent -or -not (Test-Path $config)) { fastfetch @args; return }
 
-    # AccentPalette is 8 RGBA shades, lightest first; 3 is the accent itself
-    $rgb = { param($i) , @($palette[$i * 4], $palette[$i * 4 + 1], $palette[$i * 4 + 2]) }
-    $ansi = { param($c) '38;2;{0};{1};{2}' -f $c[0], $c[1], $c[2] }
     $map = [ordered]@{
-        '38;2;148;203;137' = & $ansi (& $rgb 1)   # icons, user name, usage bars
-        '38;2;221;159;211' = & $ansi (& $rgb 0)   # host name
-        '38;2;152;187;219' = & $ansi (& $rgb 0)   # section label
+        '38;2;148;203;137' = Get-AccentAnsi 1   # icons, user name, usage bars
+        '38;2;221;159;211' = Get-AccentAnsi 0   # host name
+        '38;2;152;187;219' = Get-AccentAnsi 0   # section label
     }
     # Logo rows, top to bottom: blend shade 1 into shade 4
     $logoRows = '176;208;238', '160;197;232', '144;186;226', '128;175;220', '112;163;214', '98;152;207', '86;141;200'
-    $from, $to = (& $rgb 1), (& $rgb 4)
+    $from = $accent[4..6]
+    $to = $accent[16..18]
     for ($row = 0; $row -lt $logoRows.Count; $row++) {
         $t = $row / ($logoRows.Count - 1)
-        $map["38;2;$($logoRows[$row])"] = & $ansi (0..2 | ForEach-Object { [int]($from[$_] + ($to[$_] - $from[$_]) * $t) })
+        $mix = 0..2 | ForEach-Object { [int]($from[$_] + ($to[$_] - $from[$_]) * $t) }
+        $map["38;2;$($logoRows[$row])"] = '38;2;{0};{1};{2}' -f $mix
     }
-
-    $text = Get-Content $config -Raw
-    foreach ($key in $map.Keys) { $text = $text.Replace($key, $map[$key]) }
-    $themed = Join-Path $env:TEMP "fastfetch-accent.jsonc"
-    Set-Content $themed $text -Encoding ascii -NoNewline
-    fastfetch -c $themed @args
+    fastfetch -c (Copy-Recoloured $config $map) @args
 }
 
 # System info on new interactive shells only, not for scripts or `pwsh -Command`
 $scripted = [Environment]::GetCommandLineArgs() -match '^-(c|command|f|file|noni|noninteractive)$'
-if (-not $scripted -and -not [Console]::IsOutputRedirected -and (Get-Command fastfetch -ErrorAction SilentlyContinue)) {
+$interactive = -not $scripted -and -not [Console]::IsOutputRedirected
+if ($interactive -and (Get-Command fastfetch -ErrorAction SilentlyContinue)) {
     # komorebi tiles new windows right after they open, and output printed before
     # that gets re-wrapped by the terminal, so wait for the width to settle (max ~1s)
     $width = [Console]::WindowWidth
@@ -44,6 +53,16 @@ if (-not $scripted -and -not [Console]::IsOutputRedirected -and (Get-Command fas
     elseif ($width -ge 60) { Show-Fastfetch --logo none }
     Remove-Variable width, stable, i
 }
-Remove-Variable scripted
+
+if ($accent) {
+    # Starship: path and prompt arrow (green) and git branch (pink) follow the accent
+    $starship = "$HOME\.config\starship.toml"
+    if (Test-Path $starship) {
+        $env:STARSHIP_CONFIG = Copy-Recoloured $starship ([ordered]@{ '#94CB89' = Get-AccentHex 1; '#DD9FD3' = Get-AccentHex 0 })
+    }
+    # Terminal cursor (OSC 12); the colour scheme's cursorColor stays as the fallback
+    if ($interactive) { Write-Host -NoNewline "`e]12;$(Get-AccentHex 1)`a" }
+}
+Remove-Variable scripted, interactive
 
 Invoke-Expression (&starship init powershell)

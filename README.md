@@ -26,13 +26,13 @@ This will:
 .\update.ps1
 ```
 
-Pulls the latest changes from `main` and re-runs `link.ps1`.
+Pulls the latest changes from `main` and re-runs `setup.ps1`, which installs any newly added packages and re-links configs.
 
 ## What's tracked
 
 | File | Purpose |
 |---|---|
-| `komorebi.json` | Komorebi config — 7 workspaces, Ashes/Base16 theme, 10px padding |
+| `komorebi.json` | Komorebi config — 7 BSP workspaces per monitor (I–VII), 10px padding |
 | `applications.json` | Per-app Komorebi rules |
 | `.config/yasb/config.yaml` | YASB bar layout and widget config |
 | `.config/yasb/styles.css` | YASB stylesheet |
@@ -42,7 +42,7 @@ Pulls the latest changes from `main` and re-runs `link.ps1`.
 | `bootstrap.ps1` | One-shot setup for a fresh machine |
 | `setup.ps1` | Install packages and create startup shortcuts (idempotent) |
 | `link.ps1` | Creates symlinks for configs outside `$HOME`, backing up existing files to `.bak` |
-| `update.ps1` | Pulls latest and re-links |
+| `update.ps1` | Pulls latest and re-runs setup |
 | `.gitconfig` | Git user config |
 | `windows-terminal/settings.json` | Windows Terminal profiles, Mica Glass color scheme and keybindings |
 | `powershell/profile.ps1` | PowerShell 7 profile (runs fastfetch, starts Starship), linked to `$PROFILE` |

@@ -1,6 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Mica Glass: neutral text, green accent, pink for git
+# Mica Glass: neutral text, green accent, pink for git. powershell/profile.ps1 swaps the green
+# and pink for Windows accent shades; errors show ✗ instead of ❯ so they never read as the accent.
 add_newline = true
 format = """
 $directory\
@@ -54,4 +55,4 @@ format = "[ $duration]($style) "
 
 [character]
 success_symbol = "[❯](bold #94CB89)"
-error_symbol = "[❯](bold #EF8A91)"
+error_symbol = "[✗](bold #EF8A91)"

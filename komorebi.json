@@ -10,12 +10,6 @@
   "border_offset": -1,
   "transparency": true,
   "transparency_alpha": 245,
-  "theme": {
-    "palette": "Base16",
-    "name": "Ashes",
-    "unfocused_border": "Base03",
-    "bar_accent": "Base0D"
-  },
   "monitors": [
     {
       "workspaces": [

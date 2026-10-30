@@ -55,7 +55,7 @@
             },
             {
                 "guid": "{7be0cb34-276b-552c-8a72-1941d8fed169}",
-                "hidden": false,
+                "hidden": true,
                 "name": "Ubuntu",
                 "source": "Microsoft.WSL"
             },

@@ -1,2 +1,3 @@
 git -C $PSScriptRoot pull origin main
-& "$PSScriptRoot\link.ps1"
+# setup.ps1 is idempotent: installs anything new, then re-runs link.ps1
+& "$PSScriptRoot\setup.ps1"
