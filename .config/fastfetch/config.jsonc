@@ -1,32 +1,36 @@
 {
-  // Mica Glass palette, same colours as the Windows Terminal scheme and Starship prompt
+  // Mica Glass palette, same colours as the Windows Terminal scheme and Starship prompt.
+  // One framed card: icons green, labels and frame dim, palette in the bottom border.
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
-    "source": "Windows 11_small",
-    "color": { "1": "38;2;148;203;137", "2": "38;2;148;203;137", "3": "38;2;148;203;137", "4": "38;2;148;203;137" },
-    "padding": { "top": 1, "left": 2, "right": 3 }
+    "type": "data",
+    "source": "$1\u2588\u2588\u2588\u2588\u2588\u2588 \u2588\u2588\u2588\u2588\u2588\u2588\n$2\u2588\u2588\u2588\u2588\u2588\u2588 \u2588\u2588\u2588\u2588\u2588\u2588\n$3\u2588\u2588\u2588\u2588\u2588\u2588 \u2588\u2588\u2588\u2588\u2588\u2588\n$4\u2584\u2584\u2584\u2584\u2584\u2584 \u2584\u2584\u2584\u2584\u2584\u2584\n$5\u2588\u2588\u2588\u2588\u2588\u2588 \u2588\u2588\u2588\u2588\u2588\u2588\n$6\u2588\u2588\u2588\u2588\u2588\u2588 \u2588\u2588\u2588\u2588\u2588\u2588\n$7\u2580\u2580\u2580\u2580\u2580\u2580 \u2580\u2580\u2580\u2580\u2580\u2580",
+    "color": { "1": "38;2;176;208;238", "2": "38;2;160;197;232", "3": "38;2;144;186;226", "4": "38;2;128;175;220", "5": "38;2;112;163;214", "6": "38;2;98;152;207", "7": "38;2;86;141;200" },
+    "padding": { "top": 2, "left": 3, "right": 5 }
   },
   "display": {
     "separator": "  ",
-    "color": { "keys": "38;2;148;203;137", "title": "38;2;148;203;137" },
-    "key": { "width": 14 }
+    "key": { "width": 17 },
+    "bar": {
+      "char": { "elapsed": "\u25a0", "total": "\u25a0" },
+      "border": { "left": "", "right": "" },
+      "width": 10,
+      "color": { "elapsed": "38;2;148;203;137", "total": "38;2;64;64;64" }
+    },
+    "percent": { "type": 11, "color": { "green": "38;2;148;203;137", "yellow": "38;2;230;200;138", "red": "38;2;239;138;145" } }
   },
   "modules": [
-    "title",
-    { "type": "separator", "string": "\u2500" },
-    { "type": "os", "key": "\uf17a  os" },
-    { "type": "kernel", "key": "\uf013  kernel" },
-    { "type": "uptime", "key": "\uf017  uptime" },
-    { "type": "packages", "key": "\uf487  packages" },
-    { "type": "shell", "key": "\uf489  shell" },
-    { "type": "terminal", "key": "\ue795  terminal" },
-    { "type": "terminalfont", "key": "\uf031  font" },
-    { "type": "wm", "key": "\uf2d2  wm", "format": "{plugin-name}" },
-    { "type": "cpu", "key": "\uf4bc  cpu" },
-    { "type": "gpu", "key": "\uf108  gpu", "hideType": "unknown", "format": "{name}" },
-    { "type": "memory", "key": "\udb80\udf5b  memory" },
-    { "type": "disk", "key": "\uf0a0  disk", "folders": "C:\\" },
-    "break",
-    { "type": "colors", "symbol": "circle" }
+    { "type": "title", "format": "{#38;2;107;107;107}\u256d\u2500 {#38;2;148;203;137}{user-name}{#38;2;107;107;107}@{#38;2;221;159;211}{host-name} {#38;2;107;107;107}\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500" },
+    { "type": "os", "key": "{#38;2;107;107;107}\u2502 {#38;2;148;203;137}\uf17a  {#38;2;107;107;107}os", "format": "{pretty-name}" },
+    { "type": "uptime", "key": "{#38;2;107;107;107}\u2502 {#38;2;148;203;137}\uf017  {#38;2;107;107;107}uptime" },
+    { "type": "packages", "key": "{#38;2;107;107;107}\u2502 {#38;2;148;203;137}\uf487  {#38;2;107;107;107}packages" },
+    { "type": "shell", "key": "{#38;2;107;107;107}\u2502 {#38;2;148;203;137}\uf489  {#38;2;107;107;107}shell" },
+    { "type": "wm", "key": "{#38;2;107;107;107}\u2502 {#38;2;148;203;137}\uf2d2  {#38;2;107;107;107}wm", "format": "{plugin-name}" },
+    { "type": "custom", "format": "{#38;2;107;107;107}\u251c\u2500 {#38;2;152;187;219}hardware {#38;2;107;107;107}\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500" },
+    { "type": "cpu", "key": "{#38;2;107;107;107}\u2502 {#38;2;148;203;137}\uf4bc  {#38;2;107;107;107}cpu", "format": "{name}" },
+    { "type": "gpu", "key": "{#38;2;107;107;107}\u2502 {#38;2;148;203;137}\uf108  {#38;2;107;107;107}gpu", "detectionMethod": "vulkan", "hideType": "integrated", "format": "{name}" },
+    { "type": "memory", "key": "{#38;2;107;107;107}\u2502 {#38;2;148;203;137}\uefc5  {#38;2;107;107;107}memory", "format": "{percentage-bar} {percentage}  {used} / {total}" },
+    { "type": "disk", "key": "{#38;2;107;107;107}\u2502 {#38;2;148;203;137}\uf0a0  {#38;2;107;107;107}disk", "folders": "C:\\", "format": "{size-percentage-bar} {size-percentage}  {size-used} / {size-total}" },
+    { "type": "custom", "format": "{#38;2;107;107;107}\u2570\u2500 {#30}\u25cf {#31}\u25cf {#32}\u25cf {#33}\u25cf {#34}\u25cf {#35}\u25cf {#36}\u25cf {#37}\u25cf {#38;2;107;107;107}\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500" }
   ]
 }

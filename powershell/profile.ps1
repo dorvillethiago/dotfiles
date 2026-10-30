@@ -9,9 +9,9 @@ if (-not $scripted -and -not [Console]::IsOutputRedirected -and (Get-Command fas
         Start-Sleep -Milliseconds 50
         if ([Console]::WindowWidth -eq $width) { $stable++ } else { $width = [Console]::WindowWidth; $stable = 0 }
     }
-    # Full layout needs ~80 columns, the info alone ~52; narrower tiles get nothing
-    if ($width -ge 80) { fastfetch }
-    elseif ($width -ge 52) { fastfetch --logo none }
+    # Full layout needs ~82 columns, the info alone ~60; narrower tiles get nothing
+    if ($width -ge 82) { fastfetch }
+    elseif ($width -ge 60) { fastfetch --logo none }
     Remove-Variable width, stable, i
 }
 Remove-Variable scripted

@@ -522,7 +522,7 @@
     padding-top: 1px;
 }
 .audio-menu {
-    background-color: var(--background); 
+    background-color: var(--background);
     border: 1px solid var(--border);
     min-width: 300px;
     border-radius: var(--border-radius);
@@ -549,7 +549,7 @@
 .audio-menu .audio-container .device.selected {
     background-color: var(--background2);
     color: var(--text);
-   
+
 }
 .audio-menu .audio-container .device:hover {
     background-color: var(--hover);
@@ -576,7 +576,7 @@
 }
 .audio-menu .toggle-apps:hover {
     background-color: var(--hover);
-    
+
 }
 /* Container for application volumes (if is enabled) */
 .audio-menu .apps-container {
@@ -636,7 +636,7 @@
     background-color: transparent;
     border-radius: var(--border-radius2);
     color: var(--text);
-} 
+}
 
 /*Style for the active workspace button.*/
 .komorebi-workspaces .ws-btn.active {
@@ -647,7 +647,7 @@
     color: var(--accentText);
     padding-top: 3px;
     padding-bottom: 3px;
-} 
+}
 
 
 /* Komorebi-active-layout */
@@ -667,7 +667,7 @@
 .komorebi-layout-menu .menu-item {
     padding: 8px 16px;
     font-size: var(--fontSize);
-    color: var(--text); 
+    color: var(--text);
     font-weight: var(--fontWeight);
     margin: 2px 2px;
 }
@@ -679,13 +679,13 @@
     font-family: var(--system-font);
     padding-left:4px;
     font-size: var(--fontSize);
-} 
+}
 
 .komorebi-layout-menu .menu-item:hover {
     background-color: var(--hover);
     border-radius: var(--border-radius3);
     margin: 4px 4px;
-} 
+}
 
 .komorebi-layout-menu .separator {
     max-height: 1px;
@@ -718,7 +718,7 @@
 
 /* Systray */
 .systray {
-    
+
 }
 
 /* Icon being dragged, we already apply some transparency to it so you don't need to use it */
@@ -790,7 +790,7 @@
     font-family: var(--system-font);
     margin-top: 10px;
 }
-/* The source class name is the same as what you see in the media widget; just replace spaces with dashes and convert it to lowercase. 
+/* The source class name is the same as what you see in the media widget; just replace spaces with dashes and convert it to lowercase.
 Example: "Windows Media" becomes "windows-media" */
 .media-menu .source.aimp {
     background-color: #6f42c1;
@@ -1151,7 +1151,7 @@ Example: "Windows Media" becomes "windows-media" */
 }
 
 /* SECTIONS */
-/* Left and right padding of 12 px + 4 px margin for quick action and power plan, 
+/* Left and right padding of 12 px + 4 px margin for quick action and power plan,
 which is 16 pixels same as the other sections. */
 .control-center-menu .section {
     background: transparent;

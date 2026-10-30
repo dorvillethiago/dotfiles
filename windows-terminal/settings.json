@@ -83,7 +83,7 @@
     [
         {
             "name": "Mica Glass",
-            "background": "#202020",
+            "background": "#111111",
             "foreground": "#F3F3F3",
             "cursorColor": "#94CB89",
             "selectionBackground": "#44823C",
@@ -120,8 +120,8 @@
             },
             "tabRow":
             {
-                "background": "#202020CC",
-                "unfocusedBackground": "#202020CC"
+                "background": "#111111CC",
+                "unfocusedBackground": "#111111CC"
             },
             "window":
             {
