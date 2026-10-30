@@ -1,6 +1,6 @@
 # dotfiles
 
-<p>Windows dotfiles and scrips for a tiling window manager experience.</p>
+<p>Windows dotfiles and scripts for a tiling window manager experience.</p>
 
 <img width="2560" height="1080" alt="{5B1B346C-3A1C-435C-937F-852D26C1517C}" src="https://github.com/user-attachments/assets/0091dbd8-1e18-4245-ba7f-4d04695c6d4e" />
 
