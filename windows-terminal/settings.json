@@ -41,7 +41,7 @@
             },
             "intenseTextStyle": "bright",
             "opacity": 80,
-            "padding": "12, 0, 12, 10",
+            "padding": "12, 12, 12, 10",
             "useAcrylic": true
         },
         "list":

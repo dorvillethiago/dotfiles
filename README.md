@@ -45,8 +45,9 @@ Pulls the latest changes from `main` and re-runs `link.ps1`.
 | `update.ps1` | Pulls latest and re-links |
 | `.gitconfig` | Git user config |
 | `windows-terminal/settings.json` | Windows Terminal profiles, Mica Glass color scheme and keybindings |
-| `powershell/profile.ps1` | PowerShell 7 profile (starts Starship), linked to `$PROFILE` |
+| `powershell/profile.ps1` | PowerShell 7 profile (runs fastfetch, starts Starship), linked to `$PROFILE` |
 | `.config/starship.toml` | Starship prompt config |
+| `.config/fastfetch/config.jsonc` | fastfetch system info, shown when a terminal opens |
 | `.claude/CLAUDE.md` | Global Claude Code instructions (git rules, PR format) |
 | `.claude/settings.json` | Claude Code preferences (theme, permissions) |
 | `.claude/commands/task.md` | `/task` slash command |
@@ -64,6 +65,7 @@ All bindings use `Alt` as the modifier.
 | `Alt + Shift + 1-8` | Move focused window to workspace |
 | `Alt + t` | Toggle float |
 | `Alt + Shift + f` | Toggle monocle |
+| `Alt + Enter` | Open a new terminal window |
 | `Alt + q` | Close window |
 | `Alt + m` | Minimize window |
 | `Alt + p` | Pause Komorebi |
