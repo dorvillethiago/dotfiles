@@ -1,6 +1,7 @@
 # Windows accent palette: 8 RGBA shades, lightest first; 3 is the accent itself. It follows
 # Settings -> Personalization -> Colors, including an accent Windows picks from the wallpaper.
-$accent = (Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent' -ErrorAction SilentlyContinue).AccentPalette
+# Read via .NET: Get-ItemProperty loads the registry provider, ~400ms on a fresh shell
+$accent = [Microsoft.Win32.Registry]::GetValue('HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent', 'AccentPalette', $null)
 if ($accent.Length -lt 32) { $accent = $null }
 function Get-AccentHex([int]$Shade) { '#{0:X2}{1:X2}{2:X2}' -f $accent[$Shade * 4], $accent[$Shade * 4 + 1], $accent[$Shade * 4 + 2] }
 function Get-AccentAnsi([int]$Shade) { '38;2;{0};{1};{2}' -f $accent[$Shade * 4], $accent[$Shade * 4 + 1], $accent[$Shade * 4 + 2] }
