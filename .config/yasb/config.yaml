@@ -51,7 +51,7 @@ bars:
       - volume
       # - notifications
       - language
-      - wifi
+      - connection
       - dnd
       - control_center
 widgets:
@@ -548,16 +548,21 @@ widgets:
       callbacks:
         on_left: "toggle_card"
         on_right: "toggle_label"
-  wifi:
-    type: "yasb.wifi.WifiWidget"
+  connection:
+    type: "yasb.custom.CustomWidget"
     options:
-      # Online/offline only: Windows' own internet check, same icon for Wi-Fi and ethernet
-      label: "<span>{wifi_icon}</span>"
-      label_alt: "<span>{wifi_icon}</span>"
-      ethernet_label: "<span>{wifi_icon}</span>"
-      ethernet_label_alt: "<span>{wifi_icon}</span>"
-      ethernet_icon: "\U000F01E7"
-      wifi_icons: ["\U000F01E8", "\U000F01E7", "\U000F01E7", "\U000F01E7", "\U000F01E7"]
-      update_interval: 5000
+      # Online/offline only: connection.cmd pings 1.1.1.1, since Windows' network profile
+      # stays "up" behind VPN adapters and the wifi widget never shows offline on ethernet
+      # {data} only fills in outside <span>, so the glyph is a plain label styled in styles.css
+      class_name: "connection-widget"
+      label: "{data[icon]}"
+      label_alt: "{data[icon]}"
+      label_placeholder: "\U000F01E7"
+      tooltip: true
+      tooltip_label: "{data[status]}"
+      exec_options:
+        run_cmd: '%USERPROFILE%\.config\yasb\connection.cmd'
+        run_interval: 5000
+        return_format: "json"
       callbacks:
         on_left: "do_nothing"

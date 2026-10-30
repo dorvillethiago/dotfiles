@@ -36,6 +36,7 @@ Pulls the latest changes from `main` and re-runs `link.ps1`.
 | `applications.json` | Per-app Komorebi rules |
 | `.config/yasb/config.yaml` | YASB bar layout and widget config |
 | `.config/yasb/styles.css` | YASB stylesheet |
+| `.config/yasb/connection.cmd` | Online/offline check behind the bar's globe icon (pings 1.1.1.1) |
 | `.config/whkdrc` | Hotkey bindings for Komorebi |
 | `win.ahk` | AutoHotKey v2 script — remaps Win key to open the Powertoys Command Palette |
 | `bootstrap.ps1` | One-shot setup for a fresh machine |

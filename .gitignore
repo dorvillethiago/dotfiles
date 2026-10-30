@@ -11,6 +11,7 @@
 /.config/yasb/*
 !/.config/yasb/styles.css
 !/.config/yasb/config.yaml
+!/.config/yasb/connection.cmd
 !/.config/whkdrc
 !/.config/starship.toml
 !komorebi.json

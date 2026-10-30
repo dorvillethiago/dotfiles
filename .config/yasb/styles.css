@@ -949,7 +949,7 @@ Example: "Windows Media" becomes "windows-media" */
     margin-top: 2px;
     padding-right: 5px;
 }
-.wifi-widget .icon {
+.connection-widget .label {
     color: var(--text);
     font-family: var(--icons-font);
     /* md-earth is drawn larger than the other icons */
