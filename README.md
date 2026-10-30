@@ -28,6 +28,8 @@ This will:
 
 Pulls the latest changes from `main` and re-runs `setup.ps1`, which installs any newly added packages and re-links configs.
 
+The repo lives bare in `~\.dotfiles` with your home folder as its working tree, so plain `git` in `~` won't see it. Use `dotgit` (defined in the PowerShell profile) instead: `dotgit status`, `dotgit add <file>`, `dotgit commit`, `dotgit push`. New files also need a `!` line in `.gitignore`, which ignores everything else in home.
+
 ## What's tracked
 
 | File | Purpose |

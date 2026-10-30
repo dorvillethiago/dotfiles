@@ -1,3 +1,8 @@
+# Bootstrapped machines keep the dotfiles repo bare in ~\.dotfiles: `dotgit status`, `dotgit add`, ...
+if ((Test-Path "$HOME\.dotfiles") -and -not (Test-Path "$HOME\.git")) {
+    function dotgit { git --git-dir="$HOME\.dotfiles" --work-tree="$HOME" @args }
+}
+
 # Windows accent palette: 8 RGBA shades, lightest first; 3 is the accent itself. It follows
 # Settings -> Personalization -> Colors, including an accent Windows picks from the wallpaper.
 # Read via .NET: Get-ItemProperty loads the registry provider, ~400ms on a fresh shell
