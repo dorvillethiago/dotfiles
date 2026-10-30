@@ -1,6 +1,8 @@
 {
   // Mica Glass palette, same colours as the Windows Terminal scheme and Starship prompt.
   // One framed card: icons green, labels and frame dim, palette in the bottom border.
+  // powershell/profile.ps1 swaps the icon green, host purple, section blue and logo gradient
+  // for the Windows accent shades at launch, so keep those colours unique to their roles.
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "type": "data",
@@ -17,7 +19,7 @@
       "width": 10,
       "color": { "elapsed": "38;2;148;203;137", "total": "38;2;64;64;64" }
     },
-    "percent": { "type": 11, "color": { "green": "38;2;148;203;137", "yellow": "38;2;230;200;138", "red": "38;2;239;138;145" } }
+    "percent": { "type": 11, "color": { "green": "38;2;127;184;114", "yellow": "38;2;230;200;138", "red": "38;2;239;138;145" } }
   },
   "modules": [
     { "type": "title", "format": "{#38;2;107;107;107}\u256d\u2500 {#38;2;148;203;137}{user-name}{#38;2;107;107;107}@{#38;2;221;159;211}{host-name} {#38;2;107;107;107}\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500" },
