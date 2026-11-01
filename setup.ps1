@@ -67,7 +67,7 @@ New-StartupShortcut -Name "win-hotkeys" `
                     -WorkingDirectory $PSScriptRoot
 
 foreach ($entry in @(
-    @{ Name = "komorebi"; Exe = "komorebic"; Args = "start --await-configuration" },
+    @{ Name = "komorebi"; Exe = "komorebic"; Args = "start --whkd" },
     @{ Name = "yasb";     Exe = "yasb";      Args = "" }
 )) {
     $exePath = (Get-Command $entry.Exe -ErrorAction SilentlyContinue).Source
@@ -84,7 +84,7 @@ foreach ($entry in @(
 # 6. Start tiling environment if not already running
 if (-not (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue)) {
     Write-Host "Starting komorebi..."
-    Start-Process komorebic -ArgumentList "start --await-configuration" -NoNewWindow
+    Start-Process komorebic -ArgumentList "start --whkd" -NoNewWindow
 }
 if (-not (Get-Process -Name "yasb" -ErrorAction SilentlyContinue)) {
     Write-Host "Starting yasb..."
