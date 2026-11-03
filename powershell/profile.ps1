@@ -1,6 +1,13 @@
 # Bootstrapped machines keep the dotfiles repo bare in ~\.dotfiles: `dotgit status`, `dotgit add`, ...
 if ((Test-Path "$HOME\.dotfiles") -and -not (Test-Path "$HOME\.git")) {
     function dotgit { git --git-dir="$HOME\.dotfiles" --work-tree="$HOME" @args }
+    # VS Code's git panel honours GIT_DIR/GIT_WORK_TREE, but only for a fresh process:
+    # a window opened while VS Code runs joins the old process and its environment
+    function dotcode {
+        if (Get-Process Code -ErrorAction SilentlyContinue) { Write-Warning 'Close VS Code first, or the git panel will not see the dotfiles'; return }
+        $env:GIT_DIR = "$HOME\.dotfiles"; $env:GIT_WORK_TREE = $HOME
+        try { code $HOME } finally { Remove-Item Env:GIT_DIR, Env:GIT_WORK_TREE }
+    }
 }
 
 # Windows accent palette: 8 RGBA shades, lightest first; 3 is the accent itself. It follows
