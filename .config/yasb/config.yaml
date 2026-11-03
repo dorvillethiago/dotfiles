@@ -40,6 +40,7 @@ bars:
       - komorebi_workspaces
       - active_window
       center:
+      - open_meteo
       - clock
       - audio_visualizer
       - media
@@ -47,10 +48,10 @@ bars:
       - systray
       # - lines
       # - wallpapers
-      - open_meteo
       - volume
       # - notifications
       - language
+      - battery
       - connection
       - dnd
       - control_center
@@ -385,6 +386,23 @@ widgets:
         offset_left: 0
         show_layout_icon: true
         layout_icon: "\udb80\udf0c"
+  battery:
+    type: "yasb.battery.BatteryWidget"
+    options:
+      label: "<span>{icon}</span> {percent}%"
+      label_alt: "<span>{icon}</span> {time_remaining}"
+      time_remaining_natural: true
+      hide_unsupported: true  # desktops have no battery, so the widget just disappears there
+      charging_options:
+        icon_format: "{charging_icon}"
+        blink_charging_icon: false
+      status_icons:
+        icon_charging: "\U000F06A5"
+        icon_critical: ""
+        icon_low: ""
+        icon_medium: ""
+        icon_high: ""
+        icon_full: ""
   quick_launch:
     type: "yasb.quick_launch.QuickLaunchWidget"
     options:

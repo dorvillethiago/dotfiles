@@ -940,7 +940,25 @@ Example: "Windows Media" becomes "windows-media" */
     padding-top: 1px;
 }
 
+/* Battery-Widget */
+.battery-widget .icon {
+    color: var(--text);
+    font-family: var(--icons-font);
+    /* the fa-battery glyphs are wider than the other icons */
+    font-size: 14px;
+    padding-right: 5px;
+    padding-top: 1px;
+}
+.battery-widget .label {
+    padding-top: 1px;
+}
+
 /* Weather, connection, do not disturb */
+/* sits right before the clock, which brings its own padding */
+.open-meteo-widget {
+    padding-right: 0;
+    margin-right: 0;
+}
 .open-meteo-widget .icon {
     color: var(--text);
     font-family: var(--icons-font);
