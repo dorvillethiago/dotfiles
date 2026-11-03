@@ -119,13 +119,36 @@ New-StartupShortcut -Name "win-hotkeys" `
                     -TargetPath (Join-Path $PSScriptRoot "win.ahk") `
                     -WorkingDirectory $PSScriptRoot
 
-$ptExe = Get-PowerToysPath
-if ($ptExe) {
-    New-StartupShortcut -Name "powertoys" `
-                        -TargetPath $ptExe `
-                        -WorkingDirectory (Split-Path $ptExe)
+# PowerToys natively manages background startup via Windows Task Scheduler ("\PowerToys\Autorun for <User>").
+# A duplicate shortcut in shell:startup causes PowerToys to run twice on login, forcing its settings window to open.
+# Remove any existing startup shortcut and configure it to run silently in the background on startup.
+$ptLnk = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\powertoys.lnk"
+if (Test-Path $ptLnk) {
+    Remove-Item $ptLnk -Force -ErrorAction SilentlyContinue
+    Write-Host "Removed duplicate powertoys startup shortcut (managed via Task Scheduler)."
+}
+
+$ptConfigDir = "$env:LOCALAPPDATA\Microsoft\PowerToys"
+if (-not (Test-Path $ptConfigDir)) {
+    New-Item -ItemType Directory -Path $ptConfigDir -Force | Out-Null
+}
+
+$oobeFile = Join-Path $ptConfigDir "oobe_settings.json"
+if (-not (Test-Path $oobeFile)) {
+    Set-Content -Path $oobeFile -Value '{"openedAtFirstLaunch":true}' -Encoding utf8
+}
+
+$settingsFile = Join-Path $ptConfigDir "settings.json"
+if (Test-Path $settingsFile) {
+    try {
+        $cfg = Get-Content $settingsFile -Raw | ConvertFrom-Json
+        if (-not $cfg.startup) {
+            $cfg.startup = $true
+            $cfg | ConvertTo-Json -Depth 10 | Set-Content $settingsFile -Encoding utf8
+        }
+    } catch {}
 } else {
-    Write-Warning "PowerToys.exe not found - skipping startup shortcut."
+    Set-Content -Path $settingsFile -Value '{"startup":true}' -Encoding utf8
 }
 
 # Prefer komorebic-no-console to avoid flashing a terminal on startup; fall back to komorebic
@@ -162,6 +185,7 @@ if (-not (Get-Process -Name "yasb" -ErrorAction SilentlyContinue)) {
     Write-Host "Starting yasb..."
     Start-Process (Get-Command yasb).Source
 }
+$ptExe = Get-PowerToysPath
 if ($ptExe -and -not (Get-Process -Name "PowerToys" -ErrorAction SilentlyContinue)) {
     Write-Host "Starting PowerToys..."
     Start-Process $ptExe -WorkingDirectory (Split-Path $ptExe)
