@@ -36,6 +36,8 @@ bars:
     widgets:
       left:
       - home
+      - theme_picker
+      - wallpapers
       - komorebi_active_layout
       - komorebi_workspaces
       - active_window
@@ -47,7 +49,6 @@ bars:
       right:
       - systray
       # - lines
-      # - wallpapers
       - volume
       # - notifications
       - language
@@ -79,6 +80,31 @@ widgets:
       border_color: System
       alignment: left
       offset_left: -5
+  theme_picker:
+    # Bar theme menu: each entry runs set-theme.ps1, which copies themes\<name>.css over theme.css
+    type: yasb.home.HomeWidget
+    options:
+      label: "<span class=\"theme-icon\">\U000F03D8</span>"
+      menu_list:
+      - title: Glass
+        command: 'powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%USERPROFILE%\.config\yasb\set-theme.ps1" glass'
+        shell: true
+        show_window: false
+      - title: Amoled
+        command: 'powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%USERPROFILE%\.config\yasb\set-theme.ps1" amoled'
+        shell: true
+        show_window: false
+      - title: Opaque
+        command: 'powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%USERPROFILE%\.config\yasb\set-theme.ps1" opaque'
+        shell: true
+        show_window: false
+      system_menu: false
+      power_menu: false
+      blur: true
+      round_corners: true
+      round_corners_type: normal
+      border_color: System
+      alignment: left
   clock:
     type: yasb.clock.ClockWidget
     options:
@@ -289,10 +315,10 @@ widgets:
   wallpapers:
     type: "yasb.wallpapers.WallpapersWidget"
     options:
-      label: "<span>\udb83\udc8d</span>"
+      label: "<span>\U000F0C8D</span>"
       change_automatically: false
-    # Example path to folder with images. Can be a single string or a list of strings.
-      image_path: "D:\\OneDrive\\Pictures\\Wallpapers\\Themes\\Monochrome" 
+      # Searched recursively; YASB replaces $env:OneDrive with the OneDrive folder
+      image_path: "$env:OneDrive\\Wallpapers"
       engine:
         enabled: true
         animation: "slide_top" # circle/slide_top/diamond/split

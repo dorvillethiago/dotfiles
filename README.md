@@ -39,6 +39,8 @@ The repo lives bare in `~\.dotfiles` with your home folder as its working tree, 
 | `applications.json` | Per-app Komorebi rules |
 | `.config/yasb/config.yaml` | YASB bar layout and widget config |
 | `.config/yasb/styles.css` | YASB stylesheet |
+| `.config/yasb/themes/*.css` | Bar themes (Glass, Amoled, Opaque); the palette icon in the bar picks one |
+| `.config/yasb/set-theme.ps1` | Copies the picked theme over `theme.css`, which YASB reloads by itself (untracked, so switching never shows in git) |
 | `.config/yasb/connection.cmd` | Online/offline check behind the bar's globe icon (pings 1.1.1.1) |
 | `.config/whkdrc` | Hotkey bindings for Komorebi |
 | `win.ahk` | AutoHotKey v2 script — remaps Win key to open the Powertoys Command Palette |

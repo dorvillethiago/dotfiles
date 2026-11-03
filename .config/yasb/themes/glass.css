@@ -1,0 +1,12 @@
+/* Glass: translucent dark islands over the wallpaper (the original Mica Glass look) */
+:root {
+    --background: rgba(32, 32, 32, 0.80);
+    --background2: rgba(255, 255, 255, 0.06);
+    --text: #f3f3f3;
+    --accentText: #18181b;
+    --hover: rgba(255, 255, 255, 0.14);
+    --mutedBG: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.10);
+    --redFlash: #e5e7eb;
+    --subtext: rgba(255, 255, 255, 0.65);
+}

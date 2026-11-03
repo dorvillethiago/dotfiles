@@ -12,6 +12,8 @@
 !/.config/yasb/styles.css
 !/.config/yasb/config.yaml
 !/.config/yasb/connection.cmd
+!/.config/yasb/set-theme.ps1
+!/.config/yasb/themes
 !/.config/whkdrc
 !/.config/starship.toml
 !/.config/fastfetch

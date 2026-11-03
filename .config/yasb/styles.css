@@ -1,4 +1,5 @@
 @import "yasb_colors.css";
+@import "theme.css";
 
 /* Root Variables */
 :root {
@@ -16,18 +17,9 @@
     --fontSizeLarge: 16px;
     --fontWeight: 600;
 
-    /* Mica Glass */
-    --background: rgba(32, 32, 32, 0.80);
-    --background2: rgba(255, 255, 255, 0.06);
+    /* Colours come from theme.css (a copy of themes\*.css picked in the bar's theme menu) */
     --accent: var(--yasb-accent);
     --accent-soft: var(--yasb-accent-light2);
-    --text: #f3f3f3;
-    --accentText: #18181b;
-    --hover: rgba(255, 255, 255, 0.14);
-    --mutedBG: rgba(255, 255, 255, 0.06);
-    --border: rgba(255, 255, 255, 0.10);
-    --redFlash: #e5e7eb;
-    --subtext: rgba(255, 255, 255, 0.65);
 }
 
 /* Global Defaults */
@@ -698,6 +690,9 @@
 
 .wallpapers-widget .icon {
     color: var(--text);
+    font-family: var(--icons-font);
+    font-size: 16px;
+    margin-top: 1px;
 }
 
 .wallpapers-widget .widget-container {
@@ -979,6 +974,14 @@ Example: "Windows Media" becomes "windows-media" */
     font-family: var(--icons-font);
     font-size: 14px;
     margin-top: 2px;
+}
+/* Theme menu (a second home widget): sized like the status icons, not the Windows logo */
+.home-widget .theme-icon {
+    color: var(--text);
+    font-family: var(--icons-font);
+    /* md-palette is drawn smaller than the other icons */
+    font-size: 16px;
+    margin-top: 1px;
 }
 .language-menu {
     background-color: var(--background);

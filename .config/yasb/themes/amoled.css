@@ -1,0 +1,12 @@
+/* Amoled: solid pure black, borders barely there */
+:root {
+    --background: #000000;
+    --background2: rgba(255, 255, 255, 0.05);
+    --text: #f3f3f3;
+    --accentText: #000000;
+    --hover: rgba(255, 255, 255, 0.10);
+    --mutedBG: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.06);
+    --redFlash: #e5e7eb;
+    --subtext: rgba(255, 255, 255, 0.60);
+}

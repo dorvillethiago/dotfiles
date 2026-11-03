@@ -88,6 +88,13 @@ foreach ($entry in @(
 # 5. Wire up symlinks for files that live outside $HOME
 & "$PSScriptRoot\link.ps1"
 
+# The bar imports theme.css (untracked, written by the bar's theme menu); start on Glass
+$barTheme = "$PSScriptRoot\.config\yasb\theme.css"
+if (-not (Test-Path $barTheme)) {
+    Copy-Item "$PSScriptRoot\.config\yasb\themes\glass.css" $barTheme
+    Write-Host "Bar theme set to Glass."
+}
+
 # 6. Start tiling environment if not already running
 if (-not (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue)) {
     Write-Host "Starting komorebi..."

@@ -1,0 +1,12 @@
+/* Opaque: solid Windows 11 dark grey with visible borders, like the taskbar and flyouts */
+:root {
+    --background: #202020;
+    --background2: #2d2d2d;
+    --text: #ffffff;
+    --accentText: #18181b;
+    --hover: #383838;
+    --mutedBG: #2d2d2d;
+    --border: #454545;
+    --redFlash: #e5e7eb;
+    --subtext: #c5c5c5;
+}
