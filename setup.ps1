@@ -50,7 +50,8 @@ $packages = @(
     @{ Name = "pwsh";       Check = { Get-Command pwsh -ErrorAction SilentlyContinue } },
     @{ Name = "starship";   Check = { Get-Command starship -ErrorAction SilentlyContinue } },
     @{ Name = "fastfetch";  Check = { Get-Command fastfetch -ErrorAction SilentlyContinue } },
-    @{ Name = "JetBrainsMono-NF"; Check = { (Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\JetBrainsMonoNerdFontPropo-*.ttf") -or (Test-Path "$env:windir\Fonts\JetBrainsMonoNerdFontPropo-*.ttf") } }
+    @{ Name = "JetBrainsMono-NF"; Check = { (Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\JetBrainsMonoNerdFont-*.ttf") -or (Test-Path "$env:windir\Fonts\JetBrainsMonoNerdFont-*.ttf") } },
+    @{ Name = "JetBrainsMono-NF-Propo"; Check = { (Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\JetBrainsMonoNerdFontPropo-*.ttf") -or (Test-Path "$env:windir\Fonts\JetBrainsMonoNerdFontPropo-*.ttf") } }
 )
 foreach ($pkg in $packages) {
     if (& $pkg.Check) {
