@@ -77,14 +77,14 @@ if (-not (scoop bucket list | Select-String "nerd-fonts")) {
 
 # 3. Install packages
 $packages = @(
-    @{ Name = "komorebi";   Check = { Get-Command komorebic -ErrorAction SilentlyContinue } },
-    @{ Name = "whkd";       Check = { Get-Command whkd -ErrorAction SilentlyContinue } },
-    @{ Name = "yasb";       Check = { Get-Command yasb -ErrorAction SilentlyContinue } },
-    @{ Name = "autohotkey"; Check = { Get-Command autohotkey -ErrorAction SilentlyContinue } },
-    @{ Name = "powertoys";  Check = { (Get-PowerToysPath) -ne $null } },
-    @{ Name = "pwsh";       Check = { Get-Command pwsh -ErrorAction SilentlyContinue } },
-    @{ Name = "starship";   Check = { Get-Command starship -ErrorAction SilentlyContinue } },
-    @{ Name = "fastfetch";  Check = { Get-Command fastfetch -ErrorAction SilentlyContinue } },
+    @{ Name = "komorebi@0.1.41"; Check = { Get-Command komorebic -ErrorAction SilentlyContinue } },
+    @{ Name = "whkd@0.2.10";     Check = { Get-Command whkd -ErrorAction SilentlyContinue } },
+    @{ Name = "yasb@2.0.7";       Check = { Get-Command yasb -ErrorAction SilentlyContinue } },
+    @{ Name = "autohotkey";       Check = { Get-Command autohotkey -ErrorAction SilentlyContinue } },
+    @{ Name = "powertoys";        Check = { (Get-PowerToysPath) -ne $null } },
+    @{ Name = "pwsh";             Check = { Get-Command pwsh -ErrorAction SilentlyContinue } },
+    @{ Name = "starship";         Check = { Get-Command starship -ErrorAction SilentlyContinue } },
+    @{ Name = "fastfetch";        Check = { Get-Command fastfetch -ErrorAction SilentlyContinue } },
     @{ Name = "JetBrainsMono-NF"; Check = { (Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\JetBrainsMonoNerdFont-*.ttf") -or (Test-Path "$env:windir\Fonts\JetBrainsMonoNerdFont-*.ttf") } },
     @{ Name = "JetBrainsMono-NF-Propo"; Check = { (Test-Path "$env:LOCALAPPDATA\Microsoft\Windows\Fonts\JetBrainsMonoNerdFontPropo-*.ttf") -or (Test-Path "$env:windir\Fonts\JetBrainsMonoNerdFontPropo-*.ttf") } }
 )
@@ -96,6 +96,9 @@ foreach ($pkg in $packages) {
     }
 }
 Update-Path
+
+# Hold tiling and bar packages so 'scoop update *' never breaks dotfile configs
+@("komorebi", "whkd", "yasb") | ForEach-Object { scoop hold $_ 2>$null }
 
 # Scoop registers fonts by writing the registry itself, and Windows doesn't load the Propo ones
 # at sign-in (yasb then falls back and clips its icons). Reinstalling them through the Shell
