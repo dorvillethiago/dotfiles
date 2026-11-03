@@ -68,6 +68,23 @@ foreach ($pkg in $packages) {
 }
 Update-Path
 
+# Scoop registers fonts by writing the registry itself, and Windows doesn't load the Propo ones
+# at sign-in (yasb then falls back and clips its icons). Reinstalling them through the Shell
+# font installer, like right-click > Install, makes them load.
+$fontKey = 'HKCU:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+if (-not (Get-ItemProperty $fontKey -Name 'JetBrainsMono NFP Regular (TrueType)' -ErrorAction SilentlyContinue)) {
+    $fontDir = "$env:LOCALAPPDATA\Microsoft\Windows\Fonts"
+    $shellFonts = (New-Object -ComObject Shell.Application).Namespace(0x14)
+    Get-ChildItem "$env:USERPROFILE\scoop\apps\JetBrainsMono-NF-Propo\current" -Filter '*NerdFontPropo-*.ttf' | ForEach-Object {
+        # drop scoop's copy so the Shell doesn't stop on an "already installed" prompt
+        Remove-Item "$fontDir\$($_.Name)" -Force -ErrorAction SilentlyContinue
+        $shellFonts.CopyHere($_.FullName, 0x14)
+    }
+    Write-Host "JetBrainsMono NFP fonts registered with Windows."
+} else {
+    Write-Host "JetBrainsMono NFP fonts already registered - skipping."
+}
+
 # 4. Create startup shortcuts
 New-StartupShortcut -Name "win-hotkeys" `
                     -TargetPath (Join-Path $PSScriptRoot "win.ahk") `
