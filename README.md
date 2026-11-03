@@ -6,19 +6,20 @@
 
 ## Setup
 
-Run this from an elevated PowerShell prompt — no cloning needed:
+Run this from a normal (non-admin) PowerShell prompt — no cloning needed:
 
 ```powershell
 irm https://raw.githubusercontent.com/dorvillethiago/dotfiles/main/bootstrap.ps1 | iex
 ```
 
 This will:
-1. Install git if missing
-2. Bare-clone the repo into `$HOME\.dotfiles` (existing files are backed up to `$HOME\.dotfiles-backup`)
-3. Check out all dotfiles directly into `$HOME`
-4. Run `setup.ps1` to install packages and wire up symlinks
+1. Allow local scripts for your account (`RemoteSigned`) if Windows still blocks them
+2. Install git if missing
+3. Bare-clone the repo into `$HOME\.dotfiles` (existing files are backed up to `$HOME\.dotfiles-backup`)
+4. Check out all dotfiles directly into `$HOME`
+5. Run `setup.ps1` to install Scoop and the packages, then wire up symlinks
 
-> **Note:** Symlinks (for Windows Terminal settings) require either an elevated prompt or [Developer Mode](ms-settings:developers) enabled (Settings → System → For developers). Running `bootstrap.ps1` elevated covers both.
+> **Note:** Don't run it as administrator: Scoop refuses to install elevated, and the tiling apps shouldn't run elevated. The only step that needs admin is creating the symlinks for Windows Terminal and the PowerShell profile, so `link.ps1` shows a single UAC prompt for that — unless [Developer Mode](ms-settings:developers) is on (Settings → System → For developers), which allows symlinks without admin.
 
 ## Updating
 

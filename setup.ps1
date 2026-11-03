@@ -24,9 +24,15 @@ function New-StartupShortcut {
     Write-Host "$Name startup shortcut created."
 }
 
-# 1. Install Scoop
+# Runs as you: Scoop refuses to install elevated, and the apps started at the end shouldn't be
+# elevated either. link.ps1 asks for admin itself if symlinks need it.
+if (([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    throw "Run setup.ps1 from a normal (non-admin) PowerShell prompt."
+}
+
+# 1. Install Scoop (official installer, per-user)
 if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
-    winget install Scoop.Scoop --source winget --accept-source-agreements --accept-package-agreements
+    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
     Update-Path
 } else {
     Write-Host "Scoop already installed - skipping."

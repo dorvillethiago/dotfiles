@@ -1,6 +1,13 @@
-if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Error "Run this from an elevated PowerShell prompt."
-    exit 1
+# Runs as you, not as admin: Scoop refuses to install elevated, and the apps setup.ps1 starts
+# shouldn't run elevated either. link.ps1 asks for admin on its own if symlinks need it.
+# Errors use throw, not exit: this runs through `irm | iex`, where exit would close the window.
+if (([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    throw "Run this from a normal (non-admin) PowerShell prompt. You'll get a UAC prompt later if symlinks need admin."
+}
+
+# Windows blocks running .ps1 files by default; Scoop and setup.ps1 need RemoteSigned for this user
+if ((Get-ExecutionPolicy) -in 'Restricted', 'AllSigned', 'Undefined') {
+    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 }
 
 $repo   = "https://github.com/dorvillethiago/dotfiles.git"
@@ -22,8 +29,7 @@ if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
 
 function Assert-Git([string]$Step) {
     if ($LASTEXITCODE -ne 0) {
-        Write-Error "git $Step failed (exit $LASTEXITCODE). Fix the error above and run bootstrap again."
-        exit 1
+        throw "git $Step failed (exit $LASTEXITCODE). Fix the error above and run bootstrap again."
     }
 }
 
@@ -31,8 +37,7 @@ function Assert-Git([string]$Step) {
 if (Test-Path $gitDir) {
     git --git-dir="$gitDir" rev-parse --git-dir *> $null
     if ($LASTEXITCODE -ne 0) {
-        Write-Error "$gitDir exists but isn't a git repository (an interrupted clone?). Delete it and run bootstrap again."
-        exit 1
+        throw "$gitDir exists but isn't a git repository (an interrupted clone?). Delete it and run bootstrap again."
     }
     Write-Host ".dotfiles already exists - skipping clone."
 } else {
