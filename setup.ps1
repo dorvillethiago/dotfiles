@@ -3,6 +3,24 @@ function Update-Path {
                 [System.Environment]::GetEnvironmentVariable("Path", "User")
 }
 
+function Get-PowerToysPath {
+    $candidates = @(
+        "$env:USERPROFILE\scoop\apps\powertoys\current\PowerToys.exe",
+        "$env:ProgramFiles\PowerToys\PowerToys.exe",
+        "${env:ProgramFiles(x86)}\PowerToys\PowerToys.exe",
+        "$env:LOCALAPPDATA\Programs\PowerToys\PowerToys.exe"
+    )
+    foreach ($path in $candidates) {
+        if ($path -and (Test-Path $path)) { return $path }
+    }
+    $scoopPrefix = scoop prefix powertoys 2>$null
+    if ($scoopPrefix) {
+        $pt = Join-Path $scoopPrefix "PowerToys.exe"
+        if (Test-Path $pt) { return $pt }
+    }
+    return $null
+}
+
 function New-StartupShortcut {
     param(
         [string]$Name,
@@ -63,7 +81,7 @@ $packages = @(
     @{ Name = "whkd";       Check = { Get-Command whkd -ErrorAction SilentlyContinue } },
     @{ Name = "yasb";       Check = { Get-Command yasb -ErrorAction SilentlyContinue } },
     @{ Name = "autohotkey"; Check = { Get-Command autohotkey -ErrorAction SilentlyContinue } },
-    @{ Name = "powertoys";  Check = { Test-Path "$env:LOCALAPPDATA\Microsoft\PowerToys" } },
+    @{ Name = "powertoys";  Check = { (Get-PowerToysPath) -ne $null } },
     @{ Name = "pwsh";       Check = { Get-Command pwsh -ErrorAction SilentlyContinue } },
     @{ Name = "starship";   Check = { Get-Command starship -ErrorAction SilentlyContinue } },
     @{ Name = "fastfetch";  Check = { Get-Command fastfetch -ErrorAction SilentlyContinue } },
@@ -101,6 +119,15 @@ New-StartupShortcut -Name "win-hotkeys" `
                     -TargetPath (Join-Path $PSScriptRoot "win.ahk") `
                     -WorkingDirectory $PSScriptRoot
 
+$ptExe = Get-PowerToysPath
+if ($ptExe) {
+    New-StartupShortcut -Name "powertoys" `
+                        -TargetPath $ptExe `
+                        -WorkingDirectory (Split-Path $ptExe)
+} else {
+    Write-Warning "PowerToys.exe not found - skipping startup shortcut."
+}
+
 # Prefer komorebic-no-console to avoid flashing a terminal on startup; fall back to komorebic
 $komorebiExe = if (Get-Command komorebic-no-console -ErrorAction SilentlyContinue) { "komorebic-no-console" } else { "komorebic" }
 
@@ -135,10 +162,9 @@ if (-not (Get-Process -Name "yasb" -ErrorAction SilentlyContinue)) {
     Write-Host "Starting yasb..."
     Start-Process (Get-Command yasb).Source
 }
-$ptExe = Join-Path (scoop prefix powertoys) "PowerToys.exe"
-if ((Test-Path $ptExe) -and -not (Get-Process -Name "PowerToys" -ErrorAction SilentlyContinue)) {
+if ($ptExe -and -not (Get-Process -Name "PowerToys" -ErrorAction SilentlyContinue)) {
     Write-Host "Starting PowerToys..."
-    Start-Process $ptExe
+    Start-Process $ptExe -WorkingDirectory (Split-Path $ptExe)
 }
 $ahk = Join-Path $PSScriptRoot "win.ahk"
 if ((Test-Path $ahk) -and -not (Get-Process -Name "AutoHotkey*" -ErrorAction SilentlyContinue)) {
