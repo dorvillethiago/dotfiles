@@ -77,4 +77,4 @@ All bindings use `Alt` as the modifier.
 | `Alt + Shift + r` | Retile |
 | `Alt + o` | Reload whkd config |
 | `Alt + Shift + o` | Reload Komorebi config |
-| `Win` (tap) | Open quick launcher (YASB) |
+| `Win` (tap) | Open command palette |
