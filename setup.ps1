@@ -13,15 +13,26 @@ function New-StartupShortcut {
 
     $startupFolder = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup"
     $lnk = "$startupFolder\$Name.lnk"
-    if (Test-Path $lnk) { Write-Host "$Name shortcut already exists - skipping."; return }
-
     $WshShell = New-Object -ComObject WScript.Shell
+
+    if (Test-Path $lnk) {
+        $existing = $WshShell.CreateShortcut($lnk)
+        $sameTarget = $existing.TargetPath.TrimEnd('\') -eq $TargetPath.TrimEnd('\')
+        $sameArgs = ($existing.Arguments -replace '\s+', ' ').Trim() -eq ($Arguments -replace '\s+', ' ').Trim()
+        $sameWorkDir = $existing.WorkingDirectory.TrimEnd('\') -eq $WorkingDirectory.TrimEnd('\')
+
+        if ($sameTarget -and $sameArgs -and ($sameWorkDir -or -not $WorkingDirectory)) {
+            Write-Host "$Name shortcut already up to date - skipping."
+            return
+        }
+    }
+
     $shortcut  = $WshShell.CreateShortcut($lnk)
     $shortcut.TargetPath = $TargetPath
     if ($Arguments)        { $shortcut.Arguments       = $Arguments }
     if ($WorkingDirectory) { $shortcut.WorkingDirectory = $WorkingDirectory }
     $shortcut.Save()
-    Write-Host "$Name startup shortcut created."
+    Write-Host "$Name startup shortcut saved."
 }
 
 # Runs as you: Scoop refuses to install elevated, and the apps started at the end shouldn't be
@@ -90,8 +101,11 @@ New-StartupShortcut -Name "win-hotkeys" `
                     -TargetPath (Join-Path $PSScriptRoot "win.ahk") `
                     -WorkingDirectory $PSScriptRoot
 
+# Prefer komorebic-no-console to avoid flashing a terminal on startup; fall back to komorebic
+$komorebiExe = if (Get-Command komorebic-no-console -ErrorAction SilentlyContinue) { "komorebic-no-console" } else { "komorebic" }
+
 foreach ($entry in @(
-    @{ Name = "komorebi"; Exe = "komorebic"; Args = "start --whkd" },
+    @{ Name = "komorebi"; Exe = $komorebiExe; Args = "start --whkd" },
     @{ Name = "yasb";     Exe = "yasb";      Args = "" }
 )) {
     $exePath = (Get-Command $entry.Exe -ErrorAction SilentlyContinue).Source
@@ -115,7 +129,7 @@ if (-not (Test-Path $barTheme)) {
 # 6. Start tiling environment if not already running
 if (-not (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue)) {
     Write-Host "Starting komorebi..."
-    Start-Process komorebic -ArgumentList "start --whkd" -NoNewWindow
+    Start-Process $komorebiExe -ArgumentList "start --whkd" -NoNewWindow
 }
 if (-not (Get-Process -Name "yasb" -ErrorAction SilentlyContinue)) {
     Write-Host "Starting yasb..."
