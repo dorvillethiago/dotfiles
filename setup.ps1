@@ -115,6 +115,14 @@ if (-not (Get-ItemProperty $fontKey -Name 'JetBrainsMono NFP Regular (TrueType)'
 }
 
 # 4. Create startup shortcuts
+# Disable Windows artificial startup delay and idle-state waiting so startup apps launch immediately
+$serializeKey = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize'
+if (-not (Test-Path $serializeKey)) {
+    New-Item -Path $serializeKey -Force | Out-Null
+}
+Set-ItemProperty -Path $serializeKey -Name 'StartupDelayInMSec' -Value 0 -Type DWord
+Set-ItemProperty -Path $serializeKey -Name 'WaitForIdleState' -Value 0 -Type DWord
+
 New-StartupShortcut -Name "win-hotkeys" `
                     -TargetPath (Join-Path $PSScriptRoot "win.ahk") `
                     -WorkingDirectory $PSScriptRoot
