@@ -3,12 +3,9 @@ $script:DwcGitDir = if (Test-Path "$HOME\.dwc-shell") { "$HOME\.dwc-shell" } els
 
 if ($script:DwcGitDir -and -not (Test-Path "$HOME\.git")) {
     function dwc {
-        [CmdletBinding()]
-        param([Parameter(ValueFromRemainingArguments)]$Args)
-
         $gitDir = if (Test-Path "$HOME\.dwc-shell") { "$HOME\.dwc-shell" } elseif (Test-Path "$HOME\.wdc-shell") { "$HOME\.wdc-shell" } else { "$HOME\.dotfiles" }
-        $cmd = if ($Args) { $Args[0] } else { $null }
-        $rest = if ($Args.Count -gt 1) { $Args[1..($Args.Count - 1)] } else { @() }
+        $cmd = if ($args) { $args[0] } else { $null }
+        $gitArgs = if ($args.Count -gt 1) { @($args | Select-Object -Skip 1) } else { @() }
 
         if (-not $cmd) {
             & "$HOME\scripts\panel.ps1"
@@ -17,10 +14,10 @@ if ($script:DwcGitDir -and -not (Test-Path "$HOME\.git")) {
 
         switch ($cmd) {
             'panel' {
-                & "$HOME\scripts\panel.ps1" @rest
+                & "$HOME\scripts\panel.ps1"
             }
             'update' {
-                & "$HOME\scripts\update.ps1" @rest
+                & "$HOME\scripts\update.ps1"
             }
             'code' {
                 if (Get-Process Code -ErrorAction SilentlyContinue) {
@@ -30,25 +27,29 @@ if ($script:DwcGitDir -and -not (Test-Path "$HOME\.git")) {
                 $env:GIT_DIR = $gitDir; $env:GIT_WORK_TREE = $HOME
                 try { code $HOME } finally { Remove-Item Env:GIT_DIR, Env:GIT_WORK_TREE }
             }
+            'git' {
+                git --git-dir="$gitDir" --work-tree="$HOME" $gitArgs
+            }
             { $_ -in 'help', '--help', '-h' } {
                 Write-Host "dwc-shell (Dorville Windows Custom Shell)" -ForegroundColor Cyan
                 Write-Host "Usage:"
                 Write-Host "  dwc              Open the interactive management panel"
                 Write-Host "  dwc update       Pull latest changes, run setup, and reload Komorebi"
                 Write-Host "  dwc code         Open VS Code scoped to dwc-shell"
-                Write-Host "  dwc <git-cmd>    Run any git command (status, add, commit, push, diff, log)"
+                Write-Host "  dwc git <cmd>    Run git commands on dwc-shell (status, add, commit, push, diff, log)"
+                Write-Host "  dwc help         Show this help message"
             }
             default {
-                git --git-dir="$gitDir" --work-tree="$HOME" @Args
+                Write-Warning "Unknown command '$cmd'. Run 'dwc help' for available commands, or 'dwc git $cmd' for git."
             }
         }
     }
 
     # Backward compatibility aliases
-    function wdc       { dwc @args }
-    function dotgit    { dwc @args }
-    function dotupdate { dwc update @args }
-    function dotcode   { dwc code @args }
+    function wdc       { dwc $args }
+    function dotgit    { dwc git $args }
+    function dotupdate { dwc update }
+    function dotcode   { dwc code }
 }
 
 # Windows accent palette: 8 RGBA shades, lightest first; 3 is the accent itself. It follows

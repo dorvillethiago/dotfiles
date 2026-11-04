@@ -29,7 +29,7 @@ The repo lives bare in `~\.dwc-shell` with your home folder as its working tree.
 dwc              # Open the interactive TUI management panel
 dwc update       # Pull latest changes, re-run setup, and reload Komorebi
 dwc code         # Launch VS Code with git panel scoped to dwc-shell
-dwc <git-cmd>    # Run any git command (e.g. dwc status, dwc diff, dwc add, dwc commit, dwc push)
+dwc git <cmd>    # Run git commands on dwc-shell (e.g. dwc git status, dwc git diff, dwc git push)
 ```
 
 *(Aliases `wdc`, `dotupdate`, `dotgit`, and `dotcode` are also supported for backwards compatibility).*
