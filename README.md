@@ -19,7 +19,7 @@ This will:
 4. Check out all dotfiles directly into `$HOME`
 5. Run `setup.ps1` to install Scoop and the packages, then wire up symlinks
 
-> **Note:** Don't run it as administrator: Scoop refuses to install elevated, and the tiling apps shouldn't run elevated. The only step that needs admin is creating the symlinks for Windows Terminal and the PowerShell profile, so `link.ps1` shows a single UAC prompt for that — unless [Developer Mode](ms-settings:developers) is on (Settings → System → For developers), which allows symlinks without admin.
+> **Note:** Don't run it as administrator: Scoop refuses to install elevated, and the tiling apps shouldn't run elevated. The only step that needs admin is creating the symlinks for Windows Terminal and the PowerShell profile, so `scripts/link.ps1` shows a single UAC prompt for that — unless [Developer Mode](ms-settings:developers) is on (Settings → System → For developers), which allows symlinks without admin.
 
 ## Updating
 
@@ -29,7 +29,7 @@ From any PowerShell prompt, run:
 dotupdate
 ```
 
-*(or run `.\update.ps1` from `$HOME`)*
+*(or run `.\scripts\update.ps1`)*
 
 Pulls the latest changes from `main` and re-runs `setup.ps1`, which installs any newly added packages, re-links configs, and reloads the window manager.
 
@@ -55,9 +55,7 @@ New files also need a `!` line in `.gitignore`, which ignores everything else in
 | `win.ahk` | AutoHotKey v2 script — remaps Win key to open the Powertoys Command Palette |
 | `bootstrap.ps1` | One-shot setup for a fresh machine |
 | `setup.ps1` | Orchestrator pipeline: calls modular scripts to configure the machine |
-| `scripts/*.ps1` | Modular setup scripts (packages, system tweaks, shortcuts, linking, daemons) |
-| `link.ps1` | Creates symlinks for configs outside `$HOME`, backing up existing files to `.bak` |
-| `update.ps1` | Pulls latest, re-runs setup, and reloads window manager configuration |
+| `scripts/*.ps1` | Modular scripts (packages, system tweaks, shortcuts, linking, daemons, updates) |
 | `.gitconfig` | Git user config |
 | `windows-terminal/settings.json` | Windows Terminal profiles, Mica Glass color scheme and keybindings |
 | `powershell/profile.ps1` | PowerShell 7 profile (`dotgit`, `dotupdate`, `dotcode`, Starship, Fastfetch), linked to `$PROFILE` |

@@ -8,7 +8,7 @@ if ((Test-Path "$HOME\.dotfiles") -and -not (Test-Path "$HOME\.git")) {
         $env:GIT_DIR = "$HOME\.dotfiles"; $env:GIT_WORK_TREE = $HOME
         try { code $HOME } finally { Remove-Item Env:GIT_DIR, Env:GIT_WORK_TREE }
     }
-    function dotupdate { & "$HOME\update.ps1" @args }
+    function dotupdate { & "$HOME\scripts\update.ps1" @args }
 }
 
 # Windows accent palette: 8 RGBA shades, lightest first; 3 is the accent itself. It follows

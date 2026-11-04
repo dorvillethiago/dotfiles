@@ -57,7 +57,7 @@ if ($pending -and -not $isAdmin -and -not $devMode) {
     try {
         Start-Process (Get-Process -Id $PID).Path -Verb RunAs -ArgumentList $relaunch -Wait
     } catch {
-        Write-Warning "Admin prompt declined - configs outside home aren't linked. Enable Developer Mode or run link.ps1 again."
+        Write-Warning "Admin prompt declined - configs outside home aren't linked. Enable Developer Mode or run .\scripts\link.ps1 again."
         return
     }
     # The elevated window closes when done, so report the result here

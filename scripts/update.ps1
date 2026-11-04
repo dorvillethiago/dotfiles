@@ -1,7 +1,7 @@
 # bootstrap.ps1 keeps git's data in ~\.dotfiles with $HOME as the work tree;
 # a plain clone into $HOME has a normal .git folder instead
-if (Test-Path "$PSScriptRoot\.git") {
-    $git = @("-C", $PSScriptRoot)
+if (Test-Path "$HOME\.git") {
+    $git = @("-C", $HOME)
 } else {
     $git = @("--git-dir=$HOME\.dotfiles", "--work-tree=$HOME")
     # Bare clones made before bootstrap set this up have no remote-tracking branches
@@ -17,7 +17,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 # setup.ps1 is idempotent: installs anything new, verifies configs, re-runs symlinks
-& "$PSScriptRoot\setup.ps1"
+& "$HOME\setup.ps1"
 
 # Reload running window manager so updated rules take effect immediately
 if (Get-Process komorebi -ErrorAction SilentlyContinue) {

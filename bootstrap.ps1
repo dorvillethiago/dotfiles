@@ -1,5 +1,5 @@
 # Runs as you, not as admin: Scoop refuses to install elevated, and the apps setup.ps1 starts
-# shouldn't run elevated either. link.ps1 asks for admin on its own if symlinks need it.
+# shouldn't run elevated either. scripts/link.ps1 asks for admin on its own if symlinks need it.
 # Errors use throw, not exit: this runs through `irm | iex`, where exit would close the window.
 if (([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     throw "Run this from a normal (non-admin) PowerShell prompt. You'll get a UAC prompt later if symlinks need admin."
