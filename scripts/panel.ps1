@@ -276,7 +276,7 @@ function Show-HealthScreen {
     }
 
     # PowerToys startup (managed via settings.json → Task Scheduler, not shell:startup)
-    $ptStartup = $false
+    $ptInstalled = [bool](Get-PowerToysPath)
     $ptSettingsFile = "$env:LOCALAPPDATA\Microsoft\PowerToys\settings.json"
     if (Test-Path $ptSettingsFile) {
         try {
@@ -284,9 +284,9 @@ function Show-HealthScreen {
             $ptStartup = [bool]$ptCfg.startup
         } catch {}
     }
-    $ptIcon  = if ($ptStartup) { '✔' } else { '✖' }
-    $ptColor = if ($ptStartup) { '32' } else { '31' }
-    $ptState = if ($ptStartup) { 'Enabled (Task Scheduler)' } else { 'Disabled' }
+    $ptIcon  = if (-not $ptInstalled) { '✖' } elseif ($ptStartup) { '✔' } else { '✖' }
+    $ptColor = if (-not $ptInstalled) { '31' } elseif ($ptStartup) { '32' } else { '33' }
+    $ptState = if (-not $ptInstalled) { 'Not installed' } elseif ($ptStartup) { 'Enabled (Task Scheduler)' } else { 'Disabled' }
     Write-Color "    $ptIcon " $ptColor
     Write-ColorLine "PowerToys: $ptState" $ptColor
 
@@ -309,7 +309,7 @@ function Show-ResourceScreen {
         @{ Name = 'WHKD';       Filter = 'whkd*' }
         @{ Name = 'YASB';       Filter = 'yasb*' }
         @{ Name = 'AutoHotkey'; Filter = 'AutoHotkey*' }
-        @{ Name = 'PowerToys';  Filter = 'PowerToys*' }
+        @{ Name = 'PowerToys';  Filter = @('PowerToys*', 'Microsoft.CmdPal*') }
     )
 
     $cores = [Environment]::ProcessorCount

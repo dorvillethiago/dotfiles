@@ -26,7 +26,7 @@ $packages = @(
     @{ Name = "whkd@0.2.10";     Check = { Get-Command whkd -ErrorAction SilentlyContinue } },
     @{ Name = "yasb@2.0.7";       Check = { Get-Command yasb -ErrorAction SilentlyContinue } },
     @{ Name = "autohotkey";       Check = { Get-Command autohotkey -ErrorAction SilentlyContinue } },
-    @{ Name = "powertoys";        Check = { (Get-PowerToysPath) -ne $null } },
+    @{ Name = "powertoys@0.102.3001.0"; Check = { (Get-PowerToysPath) -ne $null } },
     @{ Name = "pwsh";             Check = { Get-Command pwsh -ErrorAction SilentlyContinue } },
     @{ Name = "starship";         Check = { Get-Command starship -ErrorAction SilentlyContinue } },
     @{ Name = "fastfetch";        Check = { Get-Command fastfetch -ErrorAction SilentlyContinue } },
@@ -44,5 +44,5 @@ foreach ($pkg in $packages) {
 }
 Update-Path
 
-# 4. Hold tiling & bar packages so 'scoop update *' never breaks configs
-@("komorebi", "whkd", "yasb") | ForEach-Object { scoop hold $_ 2>$null }
+# 4. Hold core packages so 'scoop update *' never breaks configs
+@("komorebi", "whkd", "yasb", "powertoys") | ForEach-Object { scoop hold $_ 2>$null }

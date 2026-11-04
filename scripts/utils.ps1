@@ -6,17 +6,15 @@ function Update-Path {
 function Get-PowerToysPath {
     $candidates = @(
         "$env:USERPROFILE\scoop\apps\powertoys\current\PowerToys.exe",
+        "$env:SCOOP\apps\powertoys\current\PowerToys.exe",
+        "$env:SCOOP_GLOBAL\apps\powertoys\current\PowerToys.exe",
+        "$env:ProgramData\scoop\apps\powertoys\current\PowerToys.exe",
         "$env:ProgramFiles\PowerToys\PowerToys.exe",
         "${env:ProgramFiles(x86)}\PowerToys\PowerToys.exe",
         "$env:LOCALAPPDATA\Programs\PowerToys\PowerToys.exe"
     )
     foreach ($path in $candidates) {
         if ($path -and (Test-Path $path)) { return $path }
-    }
-    $scoopPrefix = scoop prefix powertoys 2>$null
-    if ($scoopPrefix) {
-        $pt = Join-Path $scoopPrefix "PowerToys.exe"
-        if (Test-Path $pt) { return $pt }
     }
     return $null
 }
