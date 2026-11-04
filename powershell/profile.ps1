@@ -1,14 +1,47 @@
-# Bootstrapped machines keep the dotfiles repo bare in ~\.dotfiles: `dotgit status`, `dotgit add`, ...
-if ((Test-Path "$HOME\.dotfiles") -and -not (Test-Path "$HOME\.git")) {
-    function dotgit { git --git-dir="$HOME\.dotfiles" --work-tree="$HOME" @args }
-    # VS Code's git panel honours GIT_DIR/GIT_WORK_TREE, but only for a fresh process:
-    # a window opened while VS Code runs joins the old process and its environment
-    function dotcode {
-        if (Get-Process Code -ErrorAction SilentlyContinue) { Write-Warning 'Close VS Code first, or the git panel will not see the dotfiles'; return }
-        $env:GIT_DIR = "$HOME\.dotfiles"; $env:GIT_WORK_TREE = $HOME
-        try { code $HOME } finally { Remove-Item Env:GIT_DIR, Env:GIT_WORK_TREE }
+# WDC Shell (Windows Dorville Custom Shell)
+$script:WdcGitDir = if (Test-Path "$HOME\.wdc-shell") { "$HOME\.wdc-shell" } elseif (Test-Path "$HOME\.dotfiles") { "$HOME\.dotfiles" } else { $null }
+
+if ($script:WdcGitDir -and -not (Test-Path "$HOME\.git")) {
+    function wdc {
+        [CmdletBinding()]
+        param([Parameter(ValueFromRemainingArguments)]$Args)
+
+        $gitDir = if (Test-Path "$HOME\.wdc-shell") { "$HOME\.wdc-shell" } else { "$HOME\.dotfiles" }
+        $cmd = if ($Args) { $Args[0] } else { $null }
+        $rest = if ($Args.Count -gt 1) { $Args[1..($Args.Count - 1)] } else { @() }
+
+        switch ($cmd) {
+            'update' {
+                & "$HOME\scripts\update.ps1" @rest
+            }
+            'code' {
+                if (Get-Process Code -ErrorAction SilentlyContinue) {
+                    Write-Warning 'Close VS Code first, or the git panel will not see wdc-shell'
+                    return
+                }
+                $env:GIT_DIR = $gitDir; $env:GIT_WORK_TREE = $HOME
+                try { code $HOME } finally { Remove-Item Env:GIT_DIR, Env:GIT_WORK_TREE }
+            }
+            default {
+                if ($cmd) {
+                    git --git-dir="$gitDir" --work-tree="$HOME" @Args
+                } else {
+                    Write-Host "wdc-shell (Windows Dorville Custom Shell)" -ForegroundColor Cyan
+                    Write-Host "Usage:"
+                    Write-Host "  wdc update       Pull latest changes, run setup, and reload Komorebi"
+                    Write-Host "  wdc code         Open VS Code scoped to wdc-shell"
+                    Write-Host "  wdc <git-cmd>    Run any git command (status, add, commit, push, diff, log)"
+                    Write-Host ""
+                    git --git-dir="$gitDir" --work-tree="$HOME" status -s
+                }
+            }
+        }
     }
-    function dotupdate { & "$HOME\scripts\update.ps1" @args }
+
+    # Backward compatibility aliases
+    function dotgit    { wdc @args }
+    function dotupdate { wdc update @args }
+    function dotcode   { wdc code @args }
 }
 
 # Windows accent palette: 8 RGBA shades, lightest first; 3 is the accent itself. It follows

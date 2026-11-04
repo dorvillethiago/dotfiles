@@ -1,9 +1,10 @@
-# bootstrap.ps1 keeps git's data in ~\.dotfiles with $HOME as the work tree;
+# bootstrap.ps1 keeps git's data in ~\.wdc-shell (or legacy ~\.dotfiles) with $HOME as work tree;
 # a plain clone into $HOME has a normal .git folder instead
 if (Test-Path "$HOME\.git") {
     $git = @("-C", $HOME)
 } else {
-    $git = @("--git-dir=$HOME\.dotfiles", "--work-tree=$HOME")
+    $gitDir = if (Test-Path "$HOME\.wdc-shell") { "$HOME\.wdc-shell" } else { "$HOME\.dotfiles" }
+    $git = @("--git-dir=$gitDir", "--work-tree=$HOME")
     # Bare clones made before bootstrap set this up have no remote-tracking branches
     if (-not (git @git config --get remote.origin.fetch)) {
         git @git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
