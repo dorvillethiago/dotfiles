@@ -10,7 +10,15 @@ if ($script:DwcGitDir -and -not (Test-Path "$HOME\.git")) {
         $cmd = if ($Args) { $Args[0] } else { $null }
         $rest = if ($Args.Count -gt 1) { $Args[1..($Args.Count - 1)] } else { @() }
 
+        if (-not $cmd) {
+            & "$HOME\scripts\panel.ps1"
+            return
+        }
+
         switch ($cmd) {
+            'panel' {
+                & "$HOME\scripts\panel.ps1" @rest
+            }
             'update' {
                 & "$HOME\scripts\update.ps1" @rest
             }
@@ -22,18 +30,16 @@ if ($script:DwcGitDir -and -not (Test-Path "$HOME\.git")) {
                 $env:GIT_DIR = $gitDir; $env:GIT_WORK_TREE = $HOME
                 try { code $HOME } finally { Remove-Item Env:GIT_DIR, Env:GIT_WORK_TREE }
             }
+            { $_ -in 'help', '--help', '-h' } {
+                Write-Host "dwc-shell (Dorville Windows Custom Shell)" -ForegroundColor Cyan
+                Write-Host "Usage:"
+                Write-Host "  dwc              Open the interactive management panel"
+                Write-Host "  dwc update       Pull latest changes, run setup, and reload Komorebi"
+                Write-Host "  dwc code         Open VS Code scoped to dwc-shell"
+                Write-Host "  dwc <git-cmd>    Run any git command (status, add, commit, push, diff, log)"
+            }
             default {
-                if ($cmd) {
-                    git --git-dir="$gitDir" --work-tree="$HOME" @Args
-                } else {
-                    Write-Host "dwc-shell (Dorville Windows Custom Shell)" -ForegroundColor Cyan
-                    Write-Host "Usage:"
-                    Write-Host "  dwc update       Pull latest changes, run setup, and reload Komorebi"
-                    Write-Host "  dwc code         Open VS Code scoped to dwc-shell"
-                    Write-Host "  dwc <git-cmd>    Run any git command (status, add, commit, push, diff, log)"
-                    Write-Host ""
-                    git --git-dir="$gitDir" --work-tree="$HOME" status -s
-                }
+                git --git-dir="$gitDir" --work-tree="$HOME" @Args
             }
         }
     }

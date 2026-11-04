@@ -26,7 +26,7 @@ This will:
 The repo lives bare in `~\.dwc-shell` with your home folder as its working tree. Use the `dwc` command defined in your PowerShell profile:
 
 ```powershell
-dwc              # Show usage summary and repository status
+dwc              # Open the interactive TUI management panel
 dwc update       # Pull latest changes, re-run setup, and reload Komorebi
 dwc code         # Launch VS Code with git panel scoped to dwc-shell
 dwc <git-cmd>    # Run any git command (e.g. dwc status, dwc diff, dwc add, dwc commit, dwc push)
