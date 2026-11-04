@@ -1,6 +1,6 @@
-# WDC Shell
+# DWC Shell
 
-<p><b>Windows Dorville Custom Shell</b> — A keyboard-centric tiling desktop and environment provisioner for Windows.</p>
+<p><b>Dorville Windows Custom Shell</b> — A keyboard-centric tiling desktop and environment provisioner for Windows.</p>
 
 <img width="1568" height="662" alt="image" src="https://github.com/user-attachments/assets/351ff0f5-78ea-4141-a7df-010eb23432bd" />
 
@@ -9,13 +9,13 @@
 Run this from a normal (non-admin) PowerShell prompt — no cloning needed:
 
 ```powershell
-irm https://raw.githubusercontent.com/dorvillethiago/wdc-shell/main/bootstrap.ps1 | iex
+irm https://raw.githubusercontent.com/dorvillethiago/dwc-shell/main/bootstrap.ps1 | iex
 ```
 
 This will:
 1. Allow local scripts for your account (`RemoteSigned`) if Windows still blocks them
 2. Install git if missing
-3. Bare-clone the repo into `$HOME\.wdc-shell` (existing files are backed up to `$HOME\.wdc-shell-backup`)
+3. Bare-clone the repo into `$HOME\.dwc-shell` (existing files are backed up to `$HOME\.dwc-shell-backup`)
 4. Check out all configurations directly into `$HOME`
 5. Run `setup.ps1` to install Scoop and packages, apply system tweaks, and wire up symlinks
 
@@ -23,16 +23,16 @@ This will:
 
 ## CLI Usage
 
-The repo lives bare in `~\.wdc-shell` with your home folder as its working tree. Use the `wdc` command defined in your PowerShell profile:
+The repo lives bare in `~\.dwc-shell` with your home folder as its working tree. Use the `dwc` command defined in your PowerShell profile:
 
 ```powershell
-wdc              # Show usage summary and repository status
-wdc update       # Pull latest changes, re-run setup, and reload Komorebi
-wdc code         # Launch VS Code with git panel scoped to wdc-shell
-wdc <git-cmd>    # Run any git command (e.g. wdc status, wdc diff, wdc add, wdc commit, wdc push)
+dwc              # Show usage summary and repository status
+dwc update       # Pull latest changes, re-run setup, and reload Komorebi
+dwc code         # Launch VS Code with git panel scoped to dwc-shell
+dwc <git-cmd>    # Run any git command (e.g. dwc status, dwc diff, dwc add, dwc commit, dwc push)
 ```
 
-*(Legacy aliases `dotupdate`, `dotgit`, and `dotcode` are also supported for backwards compatibility).*
+*(Aliases `wdc`, `dotupdate`, `dotgit`, and `dotcode` are also supported for backwards compatibility).*
 
 New files also need a `!` line in `.gitignore`, which ignores everything else in home.
 
@@ -54,7 +54,7 @@ New files also need a `!` line in `.gitignore`, which ignores everything else in
 | `scripts/*.ps1` | Modular scripts (packages, system tweaks, shortcuts, linking, daemons, updates) |
 | `.gitconfig` | Git user config |
 | `windows-terminal/settings.json` | Windows Terminal profiles, Mica Glass color scheme and keybindings |
-| `powershell/profile.ps1` | PowerShell 7 profile (`wdc` CLI, Starship, Fastfetch), linked to `$PROFILE` |
+| `powershell/profile.ps1` | PowerShell 7 profile (`dwc` CLI, Starship, Fastfetch), linked to `$PROFILE` |
 | `.config/starship.toml` | Starship prompt config |
 | `.config/fastfetch/config.jsonc` | fastfetch system info, shown when a terminal opens |
 | `.claude/CLAUDE.md` | Global Claude Code instructions (git rules, PR format) |

@@ -10,8 +10,8 @@ if ((Get-ExecutionPolicy) -in 'Restricted', 'AllSigned', 'Undefined') {
     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 }
 
-$repo   = "https://github.com/dorvillethiago/wdc-shell.git"
-$gitDir = "$HOME\.wdc-shell"
+$repo   = "https://github.com/dorvillethiago/dwc-shell.git"
+$gitDir = "$HOME\.dwc-shell"
 
 function Update-Path {
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" +
@@ -39,7 +39,10 @@ if (Test-Path $gitDir) {
     if ($LASTEXITCODE -ne 0) {
         throw "$gitDir exists but isn't a git repository (an interrupted clone?). Delete it and run bootstrap again."
     }
-    Write-Host ".wdc-shell already exists - skipping clone."
+    Write-Host ".dwc-shell already exists - skipping clone."
+} elseif (Test-Path "$HOME\.wdc-shell") {
+    $gitDir = "$HOME\.wdc-shell"
+    Write-Host "Found existing .wdc-shell directory - skipping clone."
 } elseif (Test-Path "$HOME\.dotfiles") {
     $gitDir = "$HOME\.dotfiles"
     Write-Host "Found legacy .dotfiles directory - skipping clone."
@@ -56,11 +59,11 @@ if (Test-Path $gitDir) {
 
 # 3. Checkout into $HOME (marked done in the repo config, so a failed run resumes here)
 if ((Invoke-DotGit config --get dotfiles.checkedout) -eq "true") {
-    Write-Host "wdc-shell already checked out - skipping."
+    Write-Host "dwc-shell already checked out - skipping."
 } else {
     $conflicts = Invoke-DotGit checkout 2>&1 | Select-String "^\s+\S" | ForEach-Object { $_.ToString().Trim() }
     if ($conflicts) {
-        $backup = "$HOME\.wdc-shell-backup"
+        $backup = "$HOME\.dwc-shell-backup"
         Write-Warning "Backing up $($conflicts.Count) conflicting file(s) to $backup"
         foreach ($file in $conflicts) {
             $dest = Join-Path $backup $file

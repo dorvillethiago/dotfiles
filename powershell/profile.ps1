@@ -1,12 +1,12 @@
-# WDC Shell (Windows Dorville Custom Shell)
-$script:WdcGitDir = if (Test-Path "$HOME\.wdc-shell") { "$HOME\.wdc-shell" } elseif (Test-Path "$HOME\.dotfiles") { "$HOME\.dotfiles" } else { $null }
+# DWC Shell (Dorville Windows Custom Shell)
+$script:DwcGitDir = if (Test-Path "$HOME\.dwc-shell") { "$HOME\.dwc-shell" } elseif (Test-Path "$HOME\.wdc-shell") { "$HOME\.wdc-shell" } elseif (Test-Path "$HOME\.dotfiles") { "$HOME\.dotfiles" } else { $null }
 
-if ($script:WdcGitDir -and -not (Test-Path "$HOME\.git")) {
-    function wdc {
+if ($script:DwcGitDir -and -not (Test-Path "$HOME\.git")) {
+    function dwc {
         [CmdletBinding()]
         param([Parameter(ValueFromRemainingArguments)]$Args)
 
-        $gitDir = if (Test-Path "$HOME\.wdc-shell") { "$HOME\.wdc-shell" } else { "$HOME\.dotfiles" }
+        $gitDir = if (Test-Path "$HOME\.dwc-shell") { "$HOME\.dwc-shell" } elseif (Test-Path "$HOME\.wdc-shell") { "$HOME\.wdc-shell" } else { "$HOME\.dotfiles" }
         $cmd = if ($Args) { $Args[0] } else { $null }
         $rest = if ($Args.Count -gt 1) { $Args[1..($Args.Count - 1)] } else { @() }
 
@@ -16,7 +16,7 @@ if ($script:WdcGitDir -and -not (Test-Path "$HOME\.git")) {
             }
             'code' {
                 if (Get-Process Code -ErrorAction SilentlyContinue) {
-                    Write-Warning 'Close VS Code first, or the git panel will not see wdc-shell'
+                    Write-Warning 'Close VS Code first, or the git panel will not see dwc-shell'
                     return
                 }
                 $env:GIT_DIR = $gitDir; $env:GIT_WORK_TREE = $HOME
@@ -26,11 +26,11 @@ if ($script:WdcGitDir -and -not (Test-Path "$HOME\.git")) {
                 if ($cmd) {
                     git --git-dir="$gitDir" --work-tree="$HOME" @Args
                 } else {
-                    Write-Host "wdc-shell (Windows Dorville Custom Shell)" -ForegroundColor Cyan
+                    Write-Host "dwc-shell (Dorville Windows Custom Shell)" -ForegroundColor Cyan
                     Write-Host "Usage:"
-                    Write-Host "  wdc update       Pull latest changes, run setup, and reload Komorebi"
-                    Write-Host "  wdc code         Open VS Code scoped to wdc-shell"
-                    Write-Host "  wdc <git-cmd>    Run any git command (status, add, commit, push, diff, log)"
+                    Write-Host "  dwc update       Pull latest changes, run setup, and reload Komorebi"
+                    Write-Host "  dwc code         Open VS Code scoped to dwc-shell"
+                    Write-Host "  dwc <git-cmd>    Run any git command (status, add, commit, push, diff, log)"
                     Write-Host ""
                     git --git-dir="$gitDir" --work-tree="$HOME" status -s
                 }
@@ -39,9 +39,10 @@ if ($script:WdcGitDir -and -not (Test-Path "$HOME\.git")) {
     }
 
     # Backward compatibility aliases
-    function dotgit    { wdc @args }
-    function dotupdate { wdc update @args }
-    function dotcode   { wdc code @args }
+    function wdc       { dwc @args }
+    function dotgit    { dwc @args }
+    function dotupdate { dwc update @args }
+    function dotcode   { dwc code @args }
 }
 
 # Windows accent palette: 8 RGBA shades, lightest first; 3 is the accent itself. It follows
