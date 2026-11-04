@@ -52,3 +52,8 @@
 !/.claude/skills/pr-description
 /.claude/skills/pr-description/*
 !/.claude/skills/pr-description/SKILL.md
+
+# docs — agent instructions and architecture documentation
+!/docs
+/docs/*
+!/docs/*.md

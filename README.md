@@ -61,6 +61,7 @@ New files also need a `!` line in `.gitignore`, which ignores everything else in
 | `.claude/settings.json` | Claude Code preferences (theme, permissions) |
 | `.claude/commands/task.md` | `/task` slash command |
 | `.claude/skills/pr-description/SKILL.md` | `pr-description` skill |
+| `docs/*.md` | Agent architecture, subsystem deep-dives, and operational rules |
 
 ## Keybindings
 
