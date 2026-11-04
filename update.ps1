@@ -16,5 +16,10 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-# setup.ps1 is idempotent: installs anything new, then re-runs link.ps1
+# setup.ps1 is idempotent: installs anything new, verifies configs, re-runs symlinks
 & "$PSScriptRoot\setup.ps1"
+
+# Reload running window manager so updated rules take effect immediately
+if (Get-Process komorebi -ErrorAction SilentlyContinue) {
+    komorebic reload-configuration
+}

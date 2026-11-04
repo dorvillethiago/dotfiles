@@ -23,13 +23,22 @@ This will:
 
 ## Updating
 
+From any PowerShell prompt, run:
+
 ```powershell
-.\update.ps1
+dotupdate
 ```
 
-Pulls the latest changes from `main` and re-runs `setup.ps1`, which installs any newly added packages and re-links configs.
+*(or run `.\update.ps1` from `$HOME`)*
 
-The repo lives bare in `~\.dotfiles` with your home folder as its working tree, so plain `git` in `~` won't see it. Use `dotgit` (defined in the PowerShell profile) instead: `dotgit status`, `dotgit add <file>`, `dotgit commit`, `dotgit push`. New files also need a `!` line in `.gitignore`, which ignores everything else in home.
+Pulls the latest changes from `main` and re-runs `setup.ps1`, which installs any newly added packages, re-links configs, and reloads the window manager.
+
+The repo lives bare in `~\.dotfiles` with your home folder as its working tree, so plain `git` in `~` won't see it. Use the helpers defined in your PowerShell profile:
+* `dotgit`: Wraps `git` commands against the dotfiles repo (`dotgit status`, `dotgit add <file>`, `dotgit commit`, `dotgit push`).
+* `dotupdate`: Pulls latest changes, runs setup, and reloads the window manager.
+* `dotcode`: Launches VS Code with the git panel scoped to your dotfiles.
+
+New files also need a `!` line in `.gitignore`, which ignores everything else in home.
 
 ## What's tracked
 
@@ -45,12 +54,13 @@ The repo lives bare in `~\.dotfiles` with your home folder as its working tree, 
 | `.config/whkdrc` | Hotkey bindings for Komorebi |
 | `win.ahk` | AutoHotKey v2 script — remaps Win key to open the Powertoys Command Palette |
 | `bootstrap.ps1` | One-shot setup for a fresh machine |
-| `setup.ps1` | Install packages and create startup shortcuts (idempotent) |
+| `setup.ps1` | Orchestrator pipeline: calls modular scripts to configure the machine |
+| `scripts/*.ps1` | Modular setup scripts (packages, system tweaks, shortcuts, linking, daemons) |
 | `link.ps1` | Creates symlinks for configs outside `$HOME`, backing up existing files to `.bak` |
-| `update.ps1` | Pulls latest and re-runs setup |
+| `update.ps1` | Pulls latest, re-runs setup, and reloads window manager configuration |
 | `.gitconfig` | Git user config |
 | `windows-terminal/settings.json` | Windows Terminal profiles, Mica Glass color scheme and keybindings |
-| `powershell/profile.ps1` | PowerShell 7 profile (runs fastfetch, starts Starship), linked to `$PROFILE` |
+| `powershell/profile.ps1` | PowerShell 7 profile (`dotgit`, `dotupdate`, `dotcode`, Starship, Fastfetch), linked to `$PROFILE` |
 | `.config/starship.toml` | Starship prompt config |
 | `.config/fastfetch/config.jsonc` | fastfetch system info, shown when a terminal opens |
 | `.claude/CLAUDE.md` | Global Claude Code instructions (git rules, PR format) |

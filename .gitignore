@@ -28,6 +28,9 @@
 !bootstrap.ps1
 !link.ps1
 !update.ps1
+!/scripts
+/scripts/*
+!/scripts/*.ps1
 !.gitconfig
 !windows-terminal
 /windows-terminal/*
