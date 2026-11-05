@@ -47,6 +47,7 @@
 !/.claude/commands
 /.claude/commands/*
 !/.claude/commands/task.md
+!/.claude/commands/manage-review.md
 !/.claude/skills
 /.claude/skills/*
 !/.claude/skills/pr-description
